@@ -7,7 +7,7 @@ The point of the project is to consolidate my various notes, which are mainly in
 This repo only has the API project at this time. Here is the project structure I will have:
 
 - FileTextSearch.Api/ (Done ✅)
-- FileTextSearch.Console/ (Next 📌)
+- FileTextSearch.Console/ (Next 📌) - search logic done, but need to connect it to the API and to create a json file from the results.
 - FileTextSearch.Tests/ (using xUnit)
 - FileTextSearch.Web/ (using React)
 
@@ -46,8 +46,8 @@ This repo only has the API project at this time. Here is the project structure I
 I am not sure of all the steps I will need to add here, but it will most likely include:
 
 - Run the Web API (FileTextSearch.Api)
-- Run the console app (FileTextSearch.Console)
-- Run the React Web App
+- Run the Console app (FileTextSearch.Console)
+- Run the React web app
 - Run the xUnit tests
 
 I will need cd commands depending on the project!
@@ -134,8 +134,11 @@ This project is licensed under the MIT License.
 
 - Use `ContosoPizza` project as an example of an API with controllers ✅
 - Use `csharp-async-httpclient-example` project for using JsonSerializer.Deserialize and HttpClient in FileTextSearch.Console Program.cs file
+- Use the last meet recording to connect the API to the console app
+  - https://drive.google.com/file/d/1CLTLijgt45c5LN3LbBDp-ewox-6ultjM/view
 - Use `csharp-JsonSerializer-example` to create a json file, JsonSerializer.Serialize + File.WriteAllText, File.ReadAllText + JsonSerializer.Deserialize
   - Where would this go?
+  - This uses a users.json file I created - how do I generate a json file?
 
 ### Code notes
 
