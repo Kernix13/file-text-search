@@ -60,11 +60,6 @@ while (foldersToSearch.Count > 0)
                         FileSize = info.Length,
                         Priority = "Normal"
                     });
-
-                    // Console.WriteLine(Path.GetFileName(file));
-                    // Console.WriteLine(file);
-                    // Console.WriteLine($"File Size: {info.Length} bytes");
-                    // Console.WriteLine("-------------------------------");
                 }
             }
             catch (Exception ex)

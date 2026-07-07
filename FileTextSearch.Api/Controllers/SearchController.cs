@@ -59,7 +59,7 @@ public class SearchController : ControllerBase
         }
 
         SearchService.Update(updatedResult);
-        return NoContent(); // Returns a 204 No Content (standard for successful updates)
+        return NoContent(); // Returns a 204 No Content 
     }
 
     // DELETE: api/search/a1b2c3d4...
@@ -73,6 +73,6 @@ public class SearchController : ControllerBase
         }
 
         SearchService.Delete(id);
-        return NoContent(); // Returns a 204 No Content (standard for successful deletions)
+        return NoContent(); // Returns a 204 No Content 
     }
 }

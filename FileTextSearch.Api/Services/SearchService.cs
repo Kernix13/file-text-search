@@ -8,7 +8,7 @@ public static class SearchService
 
     static SearchService()
     {
-        // Your mock data will now automatically get assigned a random Guid upon creation!
+        // Your mock data will now automatically get assigned a random Guid upon creation! How do I get the Id?
         SearchResults = new List<SearchResult>
         {
             new SearchResult
