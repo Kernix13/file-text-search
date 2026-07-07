@@ -62,13 +62,6 @@ dotnet run
 
 <span aria-hidden="true"><br></span>
 
-## Problems
-
-1. PUT in .http file not working - it must be the Id
-2. DELETE in .http file not working - it must be the Id
-
-<span aria-hidden="true"><br></span>
-
 ## Project structure
 
 Remember to add a .github folder with templates for issues and pull requests.

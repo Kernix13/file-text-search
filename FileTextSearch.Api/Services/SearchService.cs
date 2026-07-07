@@ -4,8 +4,10 @@ namespace FileTextSearch.Services;
 
 public static class SearchService
 {
+    // This static list will act as our in-memory data store for the mock search results.
     static List<SearchResult> SearchResults { get; }
 
+    // Static constructor to initialize the mock data
     static SearchService()
     {
         // Your mock data will now automatically get assigned a random Guid upon creation! How do I get the Id?
@@ -54,16 +56,19 @@ public static class SearchService
         };
     }
 
+    // GET: api/search
     public static List<SearchResult> GetAll() => SearchResults;
 
-    // Change parameter type to Guid
+    // GET: api/search/{id}
     public static SearchResult? Get(Guid id) => SearchResults.FirstOrDefault(result => result.Id == id);
 
+    // POST: api/search
     public static void Add(SearchResult searchResult)
     {
         SearchResults.Add(searchResult);
     }
 
+    // DELETE: api/search/{id}
     public static void Delete(Guid id)
     {
         var searchResult = Get(id);
@@ -71,6 +76,7 @@ public static class SearchService
         SearchResults.Remove(searchResult);
     }
 
+    // PUT: api/search/{id}
     public static void Update(SearchResult searchResult)
     {
         // Finds the existing item by matching its unique Guid ID

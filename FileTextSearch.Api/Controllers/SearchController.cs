@@ -31,7 +31,7 @@ public class SearchController : ControllerBase
 
     // POST: api/search
     [HttpPost]
-    public ActionResult<SearchResult> Create([FromBody] SearchResult newResult)
+    public ActionResult<SearchResult> Create(SearchResult newResult)
     {
         // The model automatically generates a new Guid on creation, 
         // but you could also explicitly enforce it: newResult.Id = Guid.NewGuid();
@@ -45,7 +45,7 @@ public class SearchController : ControllerBase
 
     // PUT: api/search/a1b2c3d4...
     [HttpPut("{id}")]
-    public IActionResult Update(Guid id, [FromBody] SearchResult updatedResult)
+    public IActionResult Update(Guid id, SearchResult updatedResult)
     {
         if (id != updatedResult.Id)
         {

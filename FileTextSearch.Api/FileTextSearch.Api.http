@@ -5,7 +5,7 @@ GET {{HostAddress}}/api/search
 Accept: application/json
 
 ### 2. Get a single result by Id
-GET {{HostAddress}}/api/search/386d04b0-ec9f-4aef-80da-b40b45f18ca5
+GET {{HostAddress}}/api/search/cceca47c-2ffd-424c-9eae-84a0b7b3cf31
 Accept: application/json
 
 ### 3. Post a new search result
@@ -21,11 +21,11 @@ Content-Type: application/json
 }
 
 ### 4. Update an existing search result by Id
-PUT {{HostAddress}}/api/search/386d04b0-ec9f-4aef-80da-b40b45f18ca5
+PUT {{HostAddress}}/api/search/cceca47c-2ffd-424c-9eae-84a0b7b3cf31
 Content-Type: application/json
 
 {
-  "id": "386d04b0-ec9f-4aef-80da-b40b45f18ca5",
+  "id": "cceca47c-2ffd-424c-9eae-84a0b7b3cf31",
   "fileName": "General.md",
   "fullPath": "C:\\Users\\pc\\Documents\\WebDev\\CodeYou\\testsearch\\md1.md",
   "category": "WebDev/CodeYou/CSharp",
@@ -34,4 +34,4 @@ Content-Type: application/json
 }
 
 ### 5. Delete a search result by Id
-DELETE {{HostAddress}}/api/search/386d04b0-ec9f-4aef-80da-b40b45f18ca5
+DELETE {{HostAddress}}/api/search/cceca47c-2ffd-424c-9eae-84a0b7b3cf31
