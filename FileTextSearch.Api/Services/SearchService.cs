@@ -11,10 +11,46 @@ public static class SearchService
         // Your mock data will now automatically get assigned a random Guid upon creation!
         SearchResults = new List<SearchResult>
         {
-            new SearchResult { FileName = "General.md", FullPath = "C:\\Users\\pc\\Documents\\WebDev\\CodeYou\\CSharp\\General.md", Category = "General", FileSize = "12 KB", Priority = "Normal" },
-            new SearchResult { FileName = "md1.md", FullPath = "C:\\Users\\pc\\Documents\\WebDev\\CodeYou\\testsearch\\md1.md", Category = "WebDev/CodeYou/CSharp", FileSize = "10 KB", Priority = "Normal" },
-            new SearchResult { FileName = "pseudocode.md", FullPath = "C:\\Users\\pc\\Documents\\WebDev\\CodeYou\\CSharp\\Capstone\\pseudocode.md", Category = "General", FileSize = "1 KB", Priority = "Normal" },
-            new SearchResult { FileName = "starter-code.md", FullPath = "C:\\Users\\pc\\Documents\\WebDev\\CodeYou\\CSharp\\Capstone\\starter-code.md", Category = "General", FileSize = "0 KB", Priority = "Normal" }
+            new SearchResult
+            {
+                FileName = "General.md",
+                FullPath = "C:\\Users\\pc\\Documents\\WebDev\\CodeYou\\CSharp\\General.md",
+                Category = "General",
+                FileSize = 5087,
+                Priority = "Normal"
+            },
+            new SearchResult
+            {
+                FileName = "md1.md",
+                FullPath = "C:\\Users\\pc\\Documents\\WebDev\\CodeYou\\testsearch\\md1.md",
+                Category = "General",
+                FileSize = 8,
+                Priority = "Normal"
+            },
+            new SearchResult
+            {
+                FileName = "md3.md",
+                FullPath = "C:\\Users\\pc\\Documents\\WebDev\\CodeYou\\testsearch\\md3.md",
+                Category = "General",
+                FileSize = 30,
+                Priority = "Normal"
+            },
+            new SearchResult
+            {
+                FileName = "mod11-12.md",
+                FullPath = "C:\\Users\\pc\\Documents\\WebDev\\Traversy\\modern-react\\mod11-12.md",
+                Category = "General",
+                FileSize = 12236,
+                Priority = "Normal"
+            },
+            new SearchResult
+            {
+                FileName = "starter-code.md",
+                FullPath = "C:\\Users\\pc\\Documents\\WebDev\\CodeYou\\CSharp\\Capstone\\starter-code.md",
+                Category = "General",
+                FileSize = 8126,
+                Priority = "Normal"
+            }
         };
     }
 
