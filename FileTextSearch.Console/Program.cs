@@ -32,6 +32,8 @@ var foldersToSearch = new List<string> { rootFolder };
 // The code only searches for .md files but I will also include .txt and .html files in the future, and maybe .csv and .json. A stretch goal will be to search .docx and .xls files.
 string[] allowedExtensions = ["*.md", "*.txt", "*.html"];
 
+List<SearchResult> results = new();
+
 while (foldersToSearch.Count > 0)
 {
     var currentFolder = foldersToSearch[0];
@@ -47,9 +49,22 @@ while (foldersToSearch.Count > 0)
 
                 if (content.Contains(searchPhrase, StringComparison.OrdinalIgnoreCase))
                 {
-                    Console.WriteLine(Path.GetFileName(file));
-                    Console.WriteLine(file);
-                    Console.WriteLine("-------------------------------");
+                    var info = new FileInfo(file);
+                    var result = new SearchResult();
+
+                    results.Add(new SearchResult
+                    {
+                        FileName = Path.GetFileName(file),
+                        FullPath = file,
+                        Category = "General",
+                        FileSize = info.Length,
+                        Priority = "Normal"
+                    });
+
+                    // Console.WriteLine(Path.GetFileName(file));
+                    // Console.WriteLine(file);
+                    // Console.WriteLine($"File Size: {info.Length} bytes");
+                    // Console.WriteLine("-------------------------------");
                 }
             }
             catch (Exception ex)
@@ -85,6 +100,17 @@ while (foldersToSearch.Count > 0)
         // Log it or just silently skip the folder
         // Console.WriteLine($"Skipped (Access Denied): {currentFolder}");
     }
+}
+
+foreach (var result in results)
+{
+    Console.WriteLine(result.Id);
+    Console.WriteLine(result.FileName);
+    Console.WriteLine(result.FullPath);
+    Console.WriteLine(result.Category);
+    Console.WriteLine(result.FileSize);
+    Console.WriteLine(result.Priority);
+    Console.WriteLine();
 }
 
 Console.WriteLine($"Skipped {skippedFoldersCount} folders.");

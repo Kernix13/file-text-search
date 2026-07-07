@@ -6,6 +6,6 @@ public class SearchResult
     public string FileName { get; set; } = string.Empty;
     public string FullPath { get; set; } = string.Empty;
     public string Category { get; set; } = "General";
-    public string FileSize { get; set; } = "0 KB";
+    public long FileSize { get; set; } = 0;
     public string Priority { get; set; } = "Normal";
 }
