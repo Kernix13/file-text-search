@@ -1,4 +1,4 @@
-using FileTextSearch.Models;
+using FileTextSearch.Api.Models;
 
 namespace FileTextSearch.Services;
 

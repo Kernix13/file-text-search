@@ -1,4 +1,7 @@
-﻿Console.Write("Enter search phrase: ");
+﻿using System.Text.Json;
+using FileTextSearch.Console.Models;
+
+Console.Write("Enter search phrase: ");
 string searchPhrase = Console.ReadLine() ?? "";
 
 /* Manually set specific folder to search

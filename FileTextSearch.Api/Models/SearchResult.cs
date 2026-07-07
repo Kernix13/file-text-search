@@ -1,4 +1,4 @@
-namespace FileTextSearch.Models;
+namespace FileTextSearch.Api.Models;
 
 public class SearchResult
 {

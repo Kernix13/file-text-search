@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using FileTextSearch.Models;
+using FileTextSearch.Api.Models;
 using FileTextSearch.Services;
 
 namespace FileTextSearch.Controllers;
