@@ -1,42 +1,42 @@
 [
   {
-    "Id": "6d95675c-8e7d-42cc-8b56-bc1f922fdcee",
+    "Id": "e0fef00b-12ca-47a6-867e-036c74f08302",
     "FileName": "General.md",
     "FullPath": "C:\\Users\\pc\\Documents\\WebDev\\CodeYou\\CSharp\\General.md",
     "Category": "General",
-    "FileSize": 1000,
+    "FileSize": 5087,
     "Priority": "Normal"
   },
   {
-    "Id": "94937c4f-abcf-40af-8157-f91c7b4b7a5c",
+    "Id": "5822450b-c640-4ca3-af12-75810f4a00c3",
     "FileName": "md1.md",
     "FullPath": "C:\\Users\\pc\\Documents\\WebDev\\CodeYou\\testsearch\\md1.md",
     "Category": "General",
-    "FileSize": 1000,
+    "FileSize": 8,
     "Priority": "Normal"
   },
   {
-    "Id": "17ecd6d3-cc3e-43ed-bc37-ab943b842463",
+    "Id": "7891ffcc-144f-4b7c-88e4-69e4ce345fea",
     "FileName": "md3.md",
     "FullPath": "C:\\Users\\pc\\Documents\\WebDev\\CodeYou\\testsearch\\md3.md",
     "Category": "General",
-    "FileSize": 1000,
+    "FileSize": 30,
     "Priority": "Normal"
   },
   {
-    "Id": "69ae3468-1658-41bb-9b10-64978b3dc611",
+    "Id": "a720e82b-fa89-4ca3-bba5-12b64e8cc148",
     "FileName": "mod11-12.md",
     "FullPath": "C:\\Users\\pc\\Documents\\WebDev\\Traversy\\modern-react\\mod11-12.md",
     "Category": "General",
-    "FileSize": 1000,
+    "FileSize": 12236,
     "Priority": "Normal"
   },
   {
-    "Id": "1b22eb3d-d9f5-4eec-9701-2cbf9b94f801",
+    "Id": "1826b3f9-7b22-424c-b7ac-84104069a41b",
     "FileName": "starter-code.md",
     "FullPath": "C:\\Users\\pc\\Documents\\WebDev\\CodeYou\\CSharp\\Capstone\\starter-code.md",
     "Category": "General",
-    "FileSize": 1000,
+    "FileSize": 8126,
     "Priority": "Normal"
   }
 ]
