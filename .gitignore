@@ -6,8 +6,13 @@
 # dotenv files
 .env
 
-# personal files
+# personal files to ignore
 notes.md
+
+# personal files to ignore now but push to repo later
+ConsoleNotes.md
+ApiNotes.md
+WebNotes.md
 
 # User-specific files
 *.rsuser

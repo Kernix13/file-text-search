@@ -4,22 +4,37 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using FileTextSearch.Console.Models;
 
+
+// 1. Get the search phrase from the user
 Console.Write("Enter search phrase: ");
 string searchPhrase = Console.ReadLine() ?? "";
 
-/* Manually set specific folder to search
-   Give the user the option to choose or default to Documents
-   Here is an example to search WebDev/CodeYou for my laptop: */
-// string rootFolder = Path.Combine(
-//     Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
-//     "WebDev",
-//     "CodeYou"
-// );
+// 2. Get the root folder to search from the user, or default to Documents
+Console.Write(@"Enter complete folder path to search 
+(Press Enter to use your Documents folder): ");
+string userFolder = Console.ReadLine() ?? "";
 
 string rootFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
-// string searchPhrase = "zazaza";
+// 3. Validate the user-provided folder path, if any, and set it as the root folder
+if (userFolder != "")
+{
+    if (Directory.Exists(userFolder))
+    {
+        rootFolder = userFolder;
+    }
+    else
+    {
+        Console.WriteLine("Folder not found.");
+        return;
+    }
+}
 
+Console.WriteLine();
+Console.WriteLine($"{rootFolder} will be searched for '{searchPhrase}'");
+Console.WriteLine();
+
+// 4. Define a list of folders to ignore during the search
 HashSet<string> ignoredFolders = new()
 {
     "bin",
@@ -28,22 +43,30 @@ HashSet<string> ignoredFolders = new()
     "node_modules"
 };
 
+// 5. Initialize a counter for skipped folders and a list to hold the folders to search
 int skippedFoldersCount = 0;
 
-var foldersToSearch = new List<string> { rootFolder };
-
-// The code only searches for .md files but I will also include .txt and .html files in the future, and maybe .csv and .json. A stretch goal will be to search .docx and .xls files.
+/*  📌 The code only searches for .md files  right now but I will also 
+    include .txt and .html files in the future, and maybe .csv and .json. 
+    A stretch goal will be to search .docx and .xls files. */
 string[] allowedExtensions = ["*.md", "*.txt", "*.html"];
 
+// 6. Initialize a list to hold the folders to search, starting with the root folder
+var foldersToSearch = new List<string> { rootFolder };
+
+// 7. Initialize a list to hold the search results
 List<SearchResult> results = new();
 
+// 8. Start the search loop, which continues until there are no more folders to search
 while (foldersToSearch.Count > 0)
 {
+    // 9. Get the current folder to search and remove it from the list of folders to search 
     var currentFolder = foldersToSearch[0];
     foldersToSearch.RemoveAt(0);
 
     try
     {
+        // 10. Enumerate through all .md files in the current folder
         foreach (var file in Directory.EnumerateFiles(currentFolder, "*.md"))
         {
             try
@@ -79,6 +102,7 @@ while (foldersToSearch.Count > 0)
 
     try
     {
+        // 11. Enumerate through all subdirectories in the current folder
         foreach (var directory in Directory.EnumerateDirectories(currentFolder))
         {
             string folderName = Path.GetFileName(directory);
@@ -88,7 +112,7 @@ while (foldersToSearch.Count > 0)
                 skippedFoldersCount++;
                 continue;
             }
-
+            // 12. Add the subdirectory to the list of folders to search
             foldersToSearch.Add(directory);
         }
 
