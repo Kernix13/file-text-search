@@ -149,3 +149,15 @@ Setting every markdown file to upper or lower case is extreme for a string compa
   - It doesn't create new strings where `.ToLower` & `.ToUpper` does
   - `string.Equals`: this would not work because each markdown file is much larger than a search string so it would never return `true`
   - Docs: [StringComparison Enum](https://learn.microsoft.com/en-us/dotnet/api/system.stringcomparison?view=net-10.0)
+- Look into `AddRange()`.
+- Look into `AppContext.BaseDirectory()`.
+
+Look into:
+
+```xml
+<ItemGroup>
+    <None Update="Resources\results.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+```
