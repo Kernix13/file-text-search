@@ -1,14 +1,17 @@
 @HostAddress = http://localhost:5042
 
 ### 1. Get all static search results
+
 GET {{HostAddress}}/api/search
 Accept: application/json
 
 ### 2. Get a single result by Id
+
 GET {{HostAddress}}/api/search/cceca47c-2ffd-424c-9eae-84a0b7b3cf31
 Accept: application/json
 
 ### 3. Post a new search result
+
 POST {{HostAddress}}/api/search
 Content-Type: application/json
 
@@ -21,6 +24,7 @@ Content-Type: application/json
 }
 
 ### 4. Update an existing search result by Id
+
 PUT {{HostAddress}}/api/search/cceca47c-2ffd-424c-9eae-84a0b7b3cf31
 Content-Type: application/json
 
@@ -34,4 +38,5 @@ Content-Type: application/json
 }
 
 ### 5. Delete a search result by Id
+
 DELETE {{HostAddress}}/api/search/cceca47c-2ffd-424c-9eae-84a0b7b3cf31
