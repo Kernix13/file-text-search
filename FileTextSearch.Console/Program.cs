@@ -130,6 +130,32 @@ if (results.Count == 0)
 }
 else
 {
+    // 13. Serialize the results to JSON and save them to a file
+    // This uses a hard-coded path for now
+    var options = new JsonSerializerOptions { WriteIndented = true };
+    string jsonString = JsonSerializer.Serialize(results, options);
+    string outputPath = @"C:\Users\pc\Documents\WebDev\CodeYou\file-text-search\FileTextSearch.Api\Resources\results.json";
+
+    File.WriteAllText(outputPath, jsonString);
+    Console.WriteLine($"Successfully saved {results.Count} results to JSON.");
+
+    // 14. Send the results to the API endpoint using HttpClient
+    using var client = new HttpClient();
+    client.BaseAddress = new Uri("http://localhost:5042");
+    Console.WriteLine("Client is configured");
+
+    HttpResponseMessage response = await client.PostAsJsonAsync("/api/search", results);
+
+    if (response.IsSuccessStatusCode)
+    {
+        Console.WriteLine("Successfully uploaded search results to the API!");
+    }
+    else
+    {
+        string errorReason = await response.Content.ReadAsStringAsync();
+        Console.WriteLine($"Failed to send data. API responded with: {response.StatusCode} - {errorReason}");
+    }
+
     foreach (var result in results)
     {
         Console.WriteLine(result.Id);
