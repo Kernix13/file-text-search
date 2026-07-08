@@ -124,15 +124,23 @@ while (foldersToSearch.Count > 0)
     }
 }
 
-foreach (var result in results)
+if (results.Count == 0)
 {
-    Console.WriteLine(result.Id);
-    Console.WriteLine(result.FileName);
-    Console.WriteLine(result.FullPath);
-    Console.WriteLine(result.Category);
-    Console.WriteLine(result.FileSize);
-    Console.WriteLine(result.Priority);
-    Console.WriteLine();
+    Console.WriteLine($"No results found for '{searchPhrase}'.");
+}
+else
+{
+    foreach (var result in results)
+    {
+        Console.WriteLine(result.Id);
+        Console.WriteLine(result.FileName);
+        Console.WriteLine(result.FullPath);
+        Console.WriteLine(result.Category);
+        Console.WriteLine(result.FileSize);
+        Console.WriteLine(result.Priority);
+        Console.WriteLine();
+    }
+
+    Console.WriteLine($"Skipped {skippedFoldersCount} folders.");
 }
 
-Console.WriteLine($"Skipped {skippedFoldersCount} folders.");
