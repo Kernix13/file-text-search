@@ -7,7 +7,7 @@ Accept: application/json
 
 ### 2. Get a single result by Id
 
-GET {{HostAddress}}/api/search/cceca47c-2ffd-424c-9eae-84a0b7b3cf31
+GET {{HostAddress}}/api/search/f4ae03db-5c21-459c-98b2-9192b63bca67
 Accept: application/json
 
 ### 3. Post a new search result
