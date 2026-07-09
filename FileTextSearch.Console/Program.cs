@@ -131,13 +131,7 @@ if (results.Count == 0)
 else
 {
     // 13. Serialize the results to JSON and save them to a file
-    // This uses a hard-coded path for now
-    var options = new JsonSerializerOptions { WriteIndented = true };
-    string jsonString = JsonSerializer.Serialize(results, options);
-    string outputPath = @"C:\Users\pc\Documents\WebDev\CodeYou\file-text-search\FileTextSearch.Api\Resources\results.json";
-
-    File.WriteAllText(outputPath, jsonString);
-    Console.WriteLine($"Successfully saved {results.Count} results to JSON.");
+    // See ConsoleNotes.md for code
 
     // 14. Send the results to the API endpoint using HttpClient
     using var client = new HttpClient();
