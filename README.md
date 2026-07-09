@@ -149,15 +149,21 @@ Setting every markdown file to upper or lower case is extreme for a string compa
   - It doesn't create new strings where `.ToLower` & `.ToUpper` does
   - `string.Equals`: this would not work because each markdown file is much larger than a search string so it would never return `true`
   - Docs: [StringComparison Enum](https://learn.microsoft.com/en-us/dotnet/api/system.stringcomparison?view=net-10.0)
-- Look into `AddRange()`.
-- Look into `AppContext.BaseDirectory()`.
+- Look into `AddRange()` - C# lists have a built-in method called AddRange() which inserts the entire list into your collection
+  - .Add(item) — Takes one single item and puts it at the end of the list
+  - .AddRange(collection) — Takes a list/collection of items and adds all of them into the list
+- Look into `AppContext.BaseDirectory()`
+  - built-in C# tool that finds the path to the folder where your program is compiled and running (usually deep inside a hidden folder called bin/Debug/net10.0)
+- The `ActionResult` type is the base class for all action results in ASP.NET Core.
+  - It automatically returns data with a `Content-Type` value of `application/json`
+  - what about IActionResult instead?
 
-Look into:
+HttpClient
 
-```xml
-<ItemGroup>
-    <None Update="Resources\results.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-```
+- GetAsync vs PostAsJsonAsync
+- IsSuccessStatusCode vs EnsureSuccessStatusCode() - Lawrence used just StatusCode in a conditional but IsSuccessStatusCode is in WebApiLAb - Lawrence also used EnsureSuccessStatusCode
+- response.Content.ReadFromJsonAsync vs response.Content.ReadAsStringAsync
+
+Look at `WebApiLab` for more API code that connects to the console project, and `ClassLibraryProjects` for an example of unit testing
+
+http://localhost:5042/api/search
