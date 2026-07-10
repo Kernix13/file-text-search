@@ -132,6 +132,8 @@ This project is licensed under the MIT License.
 
 ## 🚫 My temporary notes (remove later)
 
+> WebLabApi: use the Get and Get by id code in Console/Program.cs, and the Controller and Service code in .Api
+
 - Use `ContosoPizza` project as an example of an API with controllers ✅
 - Use `csharp-async-httpclient-example` project for using JsonSerializer.Deserialize and HttpClient in FileTextSearch.Console Program.cs file
 - Use the last meet recording to connect the API to the console app
@@ -161,9 +163,13 @@ Setting every markdown file to upper or lower case is extreme for a string compa
 HttpClient
 
 - GetAsync vs PostAsJsonAsync
-- IsSuccessStatusCode vs EnsureSuccessStatusCode() - Lawrence used just StatusCode in a conditional but IsSuccessStatusCode is in WebApiLAb - Lawrence also used EnsureSuccessStatusCode
+- IsSuccessStatusCode vs EnsureSuccessStatusCode() - Lawrence used just StatusCode in a conditional but IsSuccessStatusCode is used in WebApiLAb - Lawrence also used EnsureSuccessStatusCode
 - response.Content.ReadFromJsonAsync vs response.Content.ReadAsStringAsync
 
 Look at `WebApiLab` for more API code that connects to the console project, and `ClassLibraryProjects` for an example of unit testing
 
 http://localhost:5042/api/search
+
+<!--
+1.
+ -->
