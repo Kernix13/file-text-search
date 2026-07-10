@@ -125,6 +125,11 @@ while (foldersToSearch.Count > 0)
     }
 }
 
+// GET all results: GetAsync
+
+// GET by Id: GetAsync
+
+// POST
 if (results.Count == 0)
 {
     Console.WriteLine($"No results found for '{searchPhrase}'.");
@@ -165,4 +170,6 @@ else
     Console.WriteLine($"Skipped {skippedFoldersCount} folders.");
 }
 
-// PutAsJsonAsync
+// UPDATE: PutAsJsonAsync
+
+// DELETE: 
