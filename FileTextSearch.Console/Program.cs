@@ -1,6 +1,9 @@
-﻿// using System.IO;
-// using System.Text.Json;
-// using System.Net.Http;
+﻿using System;
+using System.IO;
+using System.Text.Json;
+using System.Net.Http;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Net.Http.Json;
 
 using FileTextSearch.Console.Models;
@@ -12,6 +15,7 @@ Console.WriteLine("Client is configured");
 while (true)
 {
 
+    Console.WriteLine("");
     Console.WriteLine("1. Search Files");
     Console.WriteLine("2. View All Search Results");
     Console.WriteLine("3. View Search Result by Id");
@@ -20,40 +24,59 @@ while (true)
     Console.WriteLine("6. Exit");
 
     string choice = Console.ReadLine() ?? "";
-    switch(choice)
+    switch (choice)
     {
         case "1":
             await SearchFiles(client);
             break;
         case "2":
-            Console.WriteLine("All results");
-            // GetAll();
+            Console.WriteLine("");
+            // Console.WriteLine("All results");
+            await GetAll(client);
             break;
         case "3":
+            Console.WriteLine("");
             Console.WriteLine("Your result");
             // GetById();
             break;
         case "4":
+            Console.WriteLine("");
             Console.WriteLine("Result to update");
             // UpdateById();
             break;
         case "5":
+            Console.WriteLine("");
             Console.WriteLine("Result to delete");
             // DeleteById();
             break;
         case "6":
             return;
         default:
+            Console.WriteLine("");
             Console.WriteLine("Invalid choice.");
             break;
     }
 }
 
-// static async Task MethodName(HttpClient client) {}
+
+static async Task GetAll(HttpClient client)
+{
+    var results = await client.GetFromJsonAsync<List<SearchResult>>("/api/search");
+
+    if (results is null)
+    {
+        Console.WriteLine("No results returned from API.");
+        return;
+    }
+
+    foreach (var result in results)
+    {
+        Console.WriteLine($"{result.FileName}, {result.FullPath}");
+    }
+}
+
 static async Task SearchFiles(HttpClient client)
 {
-
-
 
     // 1. Get the search phrase from the user
     Console.Write("Enter search phrase: ");
@@ -187,7 +210,7 @@ static async Task SearchFiles(HttpClient client)
     {
         // 13. Serialize the results to JSON and save them to a file
         // See ConsoleNotes.md for code
-        
+
 
         HttpResponseMessage response = await client.PostAsJsonAsync("/api/search", results);
 
