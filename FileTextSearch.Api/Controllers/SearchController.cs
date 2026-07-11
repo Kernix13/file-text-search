@@ -31,16 +31,14 @@ public class SearchController : ControllerBase
 
     // POST: api/search
     [HttpPost]
-    public ActionResult<SearchResult> Create(SearchResult newResult)
+    public ActionResult Create(List<SearchResult> newResults) // <-- Change this to List
     {
-        // The model automatically generates a new Guid on creation, 
-        // but you could also explicitly enforce it: newResult.Id = Guid.NewGuid();
+        // Pass the list to your service
+        SearchService.Add(newResults);
 
-        SearchService.Add(newResult);
-
-        // Standard REST practice: returns a 201 Created status, 
-        // pointing to the URL where the new item can be fetched
-        return CreatedAtAction(nameof(GetById), new { id = newResult.Id }, newResult);
+        // Return a status 200 OK along with the data
+        return Ok(newResults);
+        // return Ok(new { message = $"Successfully added {newResults.Count} results." });
     }
 
     // PUT: api/search/a1b2c3d4...
