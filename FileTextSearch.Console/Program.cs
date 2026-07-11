@@ -78,7 +78,7 @@ while (foldersToSearch.Count > 0)
                 {
                     var info = new FileInfo(file);
                     var result = new SearchResult();
-
+                    // Add each md file to the results List
                     results.Add(new SearchResult
                     {
                         FileName = Path.GetFileName(file),
