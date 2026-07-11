@@ -1,60 +1,14 @@
+using System.Text.Json;
+
 using FileTextSearch.Api.Models;
 
 namespace FileTextSearch.Services;
 
 public static class SearchService
 {
-    // This static list will act as our in-memory data store for the mock search results.
-    static List<SearchResult> SearchResults { get; }
-
-    // Static constructor to initialize the mock data
-    static SearchService()
-    {
-        // Your mock data will now automatically get assigned a random Guid upon creation! How do I get the Id?
-        SearchResults = new List<SearchResult>
-        {
-            new SearchResult
-            {
-                FileName = "General.md",
-                FullPath = "C:\\Users\\pc\\Documents\\WebDev\\CodeYou\\CSharp\\General.md",
-                Category = "General",
-                FileSize = 5087,
-                Priority = "Normal"
-            },
-            new SearchResult
-            {
-                FileName = "md1.md",
-                FullPath = "C:\\Users\\pc\\Documents\\WebDev\\CodeYou\\testsearch\\md1.md",
-                Category = "General",
-                FileSize = 8,
-                Priority = "Normal"
-            },
-            new SearchResult
-            {
-                FileName = "md3.md",
-                FullPath = "C:\\Users\\pc\\Documents\\WebDev\\CodeYou\\testsearch\\md3.md",
-                Category = "General",
-                FileSize = 30,
-                Priority = "Normal"
-            },
-            new SearchResult
-            {
-                FileName = "mod11-12.md",
-                FullPath = "C:\\Users\\pc\\Documents\\WebDev\\Traversy\\modern-react\\mod11-12.md",
-                Category = "General",
-                FileSize = 12236,
-                Priority = "Normal"
-            },
-            new SearchResult
-            {
-                FileName = "starter-code.md",
-                FullPath = "C:\\Users\\pc\\Documents\\WebDev\\CodeYou\\CSharp\\Capstone\\starter-code.md",
-                Category = "General",
-                FileSize = 8126,
-                Priority = "Normal"
-            }
-        };
-    }
+    // Add "= new List<SearchResult>();" to initialize an empty list right away
+    // I think this should be private
+    public static List<SearchResult> SearchResults { get; } = new List<SearchResult>();
 
     // GET: api/search
     public static List<SearchResult> GetAll() => SearchResults;
@@ -62,10 +16,24 @@ public static class SearchService
     // GET: api/search/{id}
     public static SearchResult? Get(Guid id) => SearchResults.FirstOrDefault(result => result.Id == id);
 
+    // AppContext.BaseDirectory finds the path to the folder where your program is compiled and running (bin/Debug/net10.0)
+    private static readonly string _filePath = Path.Combine(AppContext.BaseDirectory, "Resources", "results.json");
+
     // POST: api/search
-    public static void Add(SearchResult searchResult)
+    public static void Add(List<SearchResult> newResults)
     {
-        SearchResults.Add(searchResult);
+        // the service expects a list so use AddRange
+        SearchResults.AddRange(newResults);
+
+        string? directory = Path.GetDirectoryName(_filePath);
+        if (directory != null && !Directory.Exists(directory))
+        {
+            Directory.CreateDirectory(directory);
+        }
+
+        var options = new JsonSerializerOptions { WriteIndented = true };
+        string jsonString = JsonSerializer.Serialize(SearchResults, options);
+        File.WriteAllText(_filePath, jsonString);
     }
 
     // DELETE: api/search/{id}
