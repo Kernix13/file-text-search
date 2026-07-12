@@ -62,6 +62,53 @@ dotnet run
 
 <span aria-hidden="true"><br></span>
 
+### API Project
+
+Run the API
+
+```bash
+# From project root
+dotnet run --project FileTextSearch.Api # or
+dotnet run -p FileTextSearch.Api
+```
+
+<span aria-hidden="true"><br></span>
+
+### Console Project
+
+Run the Console app
+
+```bash
+# From project root
+dotnet run --project FileTextSearch.Console # or
+dotnet run -p FileTextSearch.Console
+```
+
+<span aria-hidden="true"><br></span>
+
+### Testing Project
+
+Run the xUnit tests
+
+```bash
+cd FileTextSearch.Web
+npm run dev
+# open to http://localhost:5195
+```
+
+<span aria-hidden="true"><br></span>
+
+### React Project (OPTIONAL)
+
+Run the React UI app
+
+```bash
+# From project root
+
+```
+
+<span aria-hidden="true"><br></span>
+
 ## Project structure
 
 Remember to add a .github folder with templates for issues and pull requests.
