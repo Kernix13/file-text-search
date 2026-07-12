@@ -72,7 +72,23 @@ dotnet run --project FileTextSearch.Api # or
 dotnet run -p FileTextSearch.Api
 ```
 
-Methods & notes:
+<!--
+cd FileTextSearch.Api
+dotnet add package Scalar.AspNetCore
+ -->
+
+Then go to `http://localhost:5042/scalar` to interact with the API.
+
+Program.cs methods & notes:
+
+- `using Scalar.AspNetCore`:
+- `app.MapScalarApiReference`():
+
+Controllers methods & notes:
+
+-
+
+Services methods & notes:
 
 -
 

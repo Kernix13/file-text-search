@@ -1,5 +1,4 @@
 using System.Text.Json;
-
 using FileTextSearch.Api.Models;
 
 namespace FileTextSearch.Services;
@@ -10,14 +9,14 @@ public static class SearchService
     // I think this should be private
     public static List<SearchResult> SearchResults { get; } = new List<SearchResult>();
 
+    // AppContext.BaseDirectory finds the path to the folder where your program is compiled and running (bin/Debug/net10.0)
+    private static readonly string _filePath = Path.Combine(AppContext.BaseDirectory, "Resources", "results.json");
+
     // GET: api/search
     public static List<SearchResult> GetAll() => SearchResults;
 
     // GET: api/search/{id}
     public static SearchResult? Get(Guid id) => SearchResults.FirstOrDefault(result => result.Id == id);
-
-    // AppContext.BaseDirectory finds the path to the folder where your program is compiled and running (bin/Debug/net10.0)
-    private static readonly string _filePath = Path.Combine(AppContext.BaseDirectory, "Resources", "results.json");
 
     // POST: api/search
     public static void Add(List<SearchResult> newResults)
@@ -36,14 +35,6 @@ public static class SearchService
         File.WriteAllText(_filePath, jsonString);
     }
 
-    // DELETE: api/search/{id}
-    public static void Delete(Guid id)
-    {
-        var searchResult = Get(id);
-        if (searchResult is null) return;
-        SearchResults.Remove(searchResult);
-    }
-
     // PUT: api/search/{id}
     public static void Update(SearchResult searchResult)
     {
@@ -55,5 +46,11 @@ public static class SearchService
         SearchResults[index] = searchResult;
     }
 
-
+    // DELETE: api/search/{id}
+    public static void Delete(Guid id)
+    {
+        var searchResult = Get(id);
+        if (searchResult is null) return;
+        SearchResults.Remove(searchResult);
+    }
 }

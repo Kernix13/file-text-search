@@ -13,10 +13,10 @@ public class SearchController : ControllerBase
     public ActionResult<List<SearchResult>> GetAll()
     {
         var results = SearchService.GetAll();
-        return Ok(results); // Returns your mock list as JSON with a 200 OK status
+        return Ok(results);
     }
 
-    // GET: api/search/3f2504e0-4f89-11d3-9a0c-0305e82c3301
+    // GET: api/search/{id}
     [HttpGet("{id}")]
     public ActionResult<SearchResult> GetById(Guid id)
     {
@@ -41,7 +41,7 @@ public class SearchController : ControllerBase
         // return Ok(new { message = $"Successfully added {newResults.Count} results." });
     }
 
-    // PUT: api/search/a1b2c3d4...
+    // PUT: api/search/{id}
     [HttpPut("{id}")]
     public IActionResult Update(Guid id, SearchResult updatedResult)
     {
