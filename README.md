@@ -38,7 +38,9 @@ This repo only has the API project at this time. Here is the project structure I
 2. Run the application - not sure of the steps
 
    ```bash
-
+   # command for Api
+   # command for Console
+   # command for Tests
    ```
 
 ...
@@ -95,7 +97,7 @@ Then go to `http://localhost:5042/scalar` to interact with the API.
 #### Services methods:
 
 - `List<SearchResult> SearchResults`
-- ## `Path.Combine(AppContext.BaseDirectory, "Resources", "results.json")`
+- `Path.Combine(AppContext.BaseDirectory, "Resources", "results.json")`
 - GetAll -> return SearchResults
 - Get
   - SearchResults.FirstOrDefault
