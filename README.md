@@ -91,9 +91,7 @@ dotnet run -p FileTextSearch.Console
 Run the xUnit tests
 
 ```bash
-cd FileTextSearch.Web
-npm run dev
-# open to http://localhost:5195
+#
 ```
 
 <span aria-hidden="true"><br></span>
@@ -103,8 +101,9 @@ npm run dev
 Run the React UI app
 
 ```bash
-# From project root
-
+cd FileTextSearch.Web
+npm run dev
+# open http://localhost:5195
 ```
 
 <span aria-hidden="true"><br></span>
