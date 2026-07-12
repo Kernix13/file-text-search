@@ -1,15 +1,18 @@
 # Search files for text using C#
 
-This project will enable the user to search word or phrase and return the full path for any text file (.md, .txt, .html) that contains the search phrase.
+This project will enable the user to search a word or phrase and return the full path for any text file (.md, .txt, .html) that contains the search phrase. Implementation only for markdown files at this point.
 
 The point of the project is to consolidate my various notes, which are mainly in markdown files, into a master file or folder. For example, I have multiple files and notes involving CSS resets. These notes and files are spread across many folders and I can't always remember where they are.
 
-This repo only has the API project at this time. Here is the project structure I will have:
+Here is the structure this project will have when complete:
 
-- FileTextSearch.Api/ (Done ✅)
-- FileTextSearch.Console/ (Next 📌) - search logic done, but need to connect it to the API and to create a json file from the results.
-- FileTextSearch.Tests/ (using xUnit)
-- FileTextSearch.Web/ (using React)
+1. FileTextSearch.Api/ (✅ Done)
+2. FileTextSearch.Console/ (📌 Next)
+   - Menu done ✅
+   - Search logic done, results sent to `results.json` via POST ✅
+   - GET does not get the contents of `results.json`?!? Stopped there 🚫
+3. FileTextSearch.Tests/ using xUnit (📌 Next after #2 is done)
+4. FileTextSearch.Web/ using React
 
 <!--
   namespace: FileTextSearch
@@ -21,7 +24,7 @@ This repo only has the API project at this time. Here is the project structure I
 
 ## Prerequisites
 
-- [.NET SDK](https://dotnet.microsoft.com/en-us/download) 8.0
+- [.NET SDK](https://dotnet.microsoft.com/en-us/download) 10.0
 - [Visual Studio Code](https://code.visualstudio.com/) with [C# Dev Kit](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit)
 
 <span aria-hidden="true"><br></span>
@@ -32,18 +35,24 @@ This repo only has the API project at this time. Here is the project structure I
 
    ```sh
    git clone https://github.com/Kernix13/file-text-search.git
-   cd file-text-search/FileTextSearch.Console
+   cd file-text-search
    ```
 
 2. Run the application - not sure of the steps
 
    ```bash
-   # command for Api
-   # command for Console
-   # command for Tests
-   ```
+   # Command to run the API
+   dotnet run --project FileTextSearch.Api
 
-...
+   # Command to run the Console app
+   dotnet run --project FileTextSearch.Console
+
+   # Command to run the Unit Tests
+
+   # Command to run the React app
+   cd FileTextSearch.Web
+   npm run dev
+   ```
 
 I am not sure of all the steps I will need to add here, but it will most likely include:
 
@@ -58,7 +67,7 @@ I will need cd commands depending on the project!
 
 ```sh
 git clone https://github.com/Kernix13/file-text-search.git
-cd file-text-search/FileTextSearch.Console
+cd file-text-search
 dotnet run
 ```
 
