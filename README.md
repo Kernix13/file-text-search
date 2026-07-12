@@ -63,13 +63,13 @@ I am not sure of all the steps I will need to add here, but it will most likely 
 
 I will need cd commands depending on the project!
 
-### <span aria-hidden="true">⚡</span> Quick Start
+<!-- ### <span aria-hidden="true">⚡</span> Quick Start
 
 ```sh
 git clone https://github.com/Kernix13/file-text-search.git
 cd file-text-search
 dotnet run
-```
+``` -->
 
 <span aria-hidden="true"><br></span>
 
