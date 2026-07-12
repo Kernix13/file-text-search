@@ -72,6 +72,10 @@ dotnet run --project FileTextSearch.Api # or
 dotnet run -p FileTextSearch.Api
 ```
 
+Methods & notes:
+
+-
+
 <span aria-hidden="true"><br></span>
 
 ### Console Project
@@ -83,6 +87,21 @@ Run the Console app
 dotnet run --project FileTextSearch.Console # or
 dotnet run -p FileTextSearch.Console
 ```
+
+Methods & notes:
+
+- `StringComparison.OrdinalIgnoreCase`: case-insensitive string comparison used with the user search phrase to find marrkdown files with that phrase
+- `UnauthorizedAccessException`: occurs when enumerating the files in a directory which I ran into when searching the Documents folder
+- `HashSet<string>` used to define folders that may include markdown files like `node_modules` and to skip those folders.
+- `IsSuccessStatusCode`: property on `HttpResponseMessage`, holds a boolean for if the request was successful (200 OK) or not. See [WebApiLab](https://github.com/Kernix13/WebApiLab)
+  - I used that as opposed to `response.StatusCode`
+- `PostAsJsonAsync`: serializes a given object into a JSON payload and transmits it as the body of an HTTP POST request
+  - vs `PostAsync`: you are responsible for serializing the object, creating the HTTP content, & setting the content type
+  - `PostAsJsonAsync` does all of that for you
+- `PutAsJsonAsync`: serializes a C# object to JSON and sends an HTTP PUT request
+  - `PutAsync`: Exactly the same idea as above
+- `GetFromJsonAsync`: I think I will be using this for both GET requests
+  - Get abd Get By Id both use `GetAsync` in other projects
 
 <span aria-hidden="true"><br></span>
 
