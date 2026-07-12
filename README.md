@@ -64,7 +64,7 @@ dotnet run
 
 ### API Project
 
-Run the API
+#### Run the API
 
 ```bash
 # From project root
@@ -79,18 +79,39 @@ dotnet add package Scalar.AspNetCore
 
 Then go to `http://localhost:5042/scalar` to interact with the API.
 
-Program.cs methods & notes:
+#### Program.cs methods:
 
 - `using Scalar.AspNetCore`:
 - `app.MapScalarApiReference`():
 
-Controllers methods & notes:
+#### Controllers methods:
 
--
+- HttpGet -> GetAll -> ActionResult SearchService.GetAll -> return Ok()
+- HttpGet -> GetById -> ActionResult SearchService.Get -> return Ok()
+- HttpPost -> Create -> ActionResult SearchService.Add -> return Ok()
+- HttpPut -> Update -> IActionResult SearchService.Get -> return NoContent()
+- HttpDelete -> Delete -> IActionResult SearchService.Get -> return NoContent()
 
-Services methods & notes:
+#### Services methods:
 
--
+- `List<SearchResult> SearchResults`
+- ## `Path.Combine(AppContext.BaseDirectory, "Resources", "results.json")`
+- GetAll -> return SearchResults
+- Get
+  - SearchResults.FirstOrDefault
+- Add
+  - AddRange
+  - Path.GetDirectoryName
+  - Directory.Exists
+  - Directory.CreateDirectory
+  - JsonSerializerOptions
+  - JsonSerializer.Serialize
+  - File.WriteAllText
+- Update
+  - SearchResults.FindIndex
+- Delete
+  - Get
+  - SearchResults.Remove
 
 <span aria-hidden="true"><br></span>
 
