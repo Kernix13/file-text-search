@@ -1,4 +1,4 @@
-# Search files for text using C#
+# File Text Search API using C#
 
 This project will enable the user to search a word or phrase and return the full path for any text file (.md, .txt, .html) that contains the search phrase. Implementation only for markdown files at this point.
 
