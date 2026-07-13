@@ -1,16 +1,13 @@
-using System.Text.Json;
 using FileTextSearch.Api.Models;
 
 namespace FileTextSearch.Services;
 
 public static class SearchService
 {
-    // Add "= new List<SearchResult>();" to initialize an empty list right away
-    // I think this should be private
+
     public static List<SearchResult> SearchResults { get; } = new List<SearchResult>();
 
-    // AppContext.BaseDirectory finds the path to the folder where your program is compiled and running (bin/Debug/net10.0)
-    private static readonly string _filePath = Path.Combine(AppContext.BaseDirectory, "Resources", "results.json");
+    // Do I have a constructor here?
 
     // GET: api/search
     public static List<SearchResult> GetAll() => SearchResults;
@@ -21,29 +18,18 @@ public static class SearchService
     // POST: api/search
     public static void Add(List<SearchResult> newResults)
     {
-        // the service expects a list so use AddRange
+        SearchResults.Clear();
         SearchResults.AddRange(newResults);
-
-        string? directory = Path.GetDirectoryName(_filePath);
-        if (directory != null && !Directory.Exists(directory))
-        {
-            Directory.CreateDirectory(directory);
-        }
-
-        var options = new JsonSerializerOptions { WriteIndented = true };
-        string jsonString = JsonSerializer.Serialize(SearchResults, options);
-        File.WriteAllText(_filePath, jsonString);
     }
 
     // PUT: api/search/{id}
     public static void Update(SearchResult searchResult)
     {
-        // Finds the existing item by matching its unique Guid ID
-        var index = SearchResults.FindIndex(r => r.Id == searchResult.Id);
-        if (index == -1)
+        var result = SearchResults.FirstOrDefault(x => x.Id == searchResult.Id);
+        if (result is null)
             return;
 
-        SearchResults[index] = searchResult;
+        result.Priority = searchResult.Priority;
     }
 
     // DELETE: api/search/{id}

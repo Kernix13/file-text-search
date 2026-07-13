@@ -1,11 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Text.Json;
-using System.Net.Http;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Net.Http.Json;
-
+﻿using System.Net.Http.Json;
 using FileTextSearch.Console.Models;
 
 using var client = new HttpClient();
@@ -14,7 +7,6 @@ Console.WriteLine("Client is configured");
 
 while (true)
 {
-
     Console.WriteLine("");
     Console.WriteLine("1. Search Files");
     Console.WriteLine("2. View All Search Results");
@@ -31,23 +23,19 @@ while (true)
             break;
         case "2":
             Console.WriteLine("");
-            // Console.WriteLine("All results");
             await GetAll(client);
             break;
         case "3":
             Console.WriteLine("");
-            Console.WriteLine("Your result");
-            // GetById();
+            await GetById(client);
             break;
         case "4":
             Console.WriteLine("");
-            Console.WriteLine("Result to update");
-            // UpdateById();
+            await UpdateById(client);
             break;
         case "5":
             Console.WriteLine("");
-            Console.WriteLine("Result to delete");
-            // DeleteById();
+            await DeleteById(client);
             break;
         case "6":
             return;
@@ -57,9 +45,6 @@ while (true)
             break;
     }
 }
-
-
-
 
 static async Task SearchFiles(HttpClient client)
 {
@@ -190,10 +175,6 @@ static async Task SearchFiles(HttpClient client)
     }
     else
     {
-        // 13. Serialize the results to JSON and save them to a file
-        // See ConsoleNotes.md for code
-
-
         HttpResponseMessage response = await client.PostAsJsonAsync("/api/search", results);
 
         if (response.IsSuccessStatusCode)
@@ -234,29 +215,63 @@ static async Task GetAll(HttpClient client)
 
     foreach (var result in results)
     {
-        Console.WriteLine($"{result.FileName}, {result.FullPath}");
+        Console.WriteLine($"{result.FileName}, {result.FullPath}, {result.Priority}");
     }
 }
 
-// GET by Id: GetAsync or GetFromJsonAsync
+// GET by Id: GetAsync or GetFromJsonAsync 
 static async Task GetById(HttpClient client)
 {
-    Console.WriteLine("");
-    Console.WriteLine("The Id of the result you want to view");
-}
-
-// UPDATE: PutAsJsonAsync 
-static async Task UpdateById(HttpClient client)
-{
-    Console.WriteLine("");
-    Console.WriteLine("Result to update");
+    Console.WriteLine("Enter the Id of the result you want to view: ");
+    string? id = Console.ReadLine();
+    var result = await client.GetFromJsonAsync<SearchResult>($"/api/search/{id}");
+    if (result != null)
+    {
+        Console.WriteLine(result.FileName);
+        Console.WriteLine(result.FullPath);
+    }
+    else
+    {
+        Console.WriteLine($"No result found with ID: {id}");
+    }
 }
 
 // DELETE: 
 static async Task DeleteById(HttpClient client)
 {
-    Console.WriteLine("");
-    Console.WriteLine("Result to delete");
+    Console.WriteLine("Enter the Id of the result you want to delete: ");
+    string? id = Console.ReadLine();
+    var response = await client.DeleteAsync($"/api/search/{id}");
+    if (response.IsSuccessStatusCode)
+    {
+        Console.WriteLine("Result deleted successfully.");
+    }
+    else
+    {
+        Console.WriteLine($"Failed to delete result with ID: {id}");
+    }
+}
+
+// UPDATE:  
+static async Task UpdateById(HttpClient client)
+{
+    Console.WriteLine("Enter the Id of the result you want to edit: ");
+    string? id = Console.ReadLine();
+    Console.WriteLine("Enter the new priority value (High/Low): ");
+    string? priority = Console.ReadLine();
+    if (string.IsNullOrWhiteSpace(id))
+    {
+        Console.WriteLine("Invalid Id.");
+        return;
+    }
+
+    if (!Guid.TryParse(id, out var guid))
+    {
+        Console.WriteLine("Invalid GUID format.");
+        return;
+    }
+
+    var response = await client.PutAsJsonAsync<SearchResult>($"/api/search/{id}", new SearchResult { Id = guid, Priority = priority ?? "Normal" });
 }
 
 

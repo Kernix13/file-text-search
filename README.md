@@ -7,17 +7,16 @@ The point of the project is to consolidate my various notes, which are mainly in
 Here is the structure this project will have when complete:
 
 1. FileTextSearch.Api/ (✅ Done)
-2. FileTextSearch.Console/ (📌 Next)
+2. FileTextSearch.Console/ (✅ Done)
    - Menu done ✅
-   - Search logic done, results sent to `results.json` via POST ✅
-   - GET does not get the contents of `results.json`?!? Stopped there 🚫
-3. FileTextSearch.Tests/ using xUnit (📌 Next after #2 is done)
+   - Full CRUD done ✅
+3. FileTextSearch.Tests/ using xUnit (📌 Next)
 4. FileTextSearch.Web/ using React
 
 <!--
   namespace: FileTextSearch
   About text: ?
-  Topics: csharp, ???
+  Topics: csharp,
  -->
 
 <span aria-hidden="true"><br></span>
@@ -38,7 +37,7 @@ Here is the structure this project will have when complete:
    cd file-text-search
    ```
 
-2. Run the application - not sure of the steps
+2. Run the application (not sure if this is how this should look)
 
    ```bash
    # Command to run the API
@@ -88,7 +87,7 @@ cd FileTextSearch.Api
 dotnet add package Scalar.AspNetCore
  -->
 
-Then go to `http://localhost:5042/scalar` to interact with the API.
+Then go to `http://localhost:5042/scalar` to interact with the API. The API is at `http://localhost:5042/api/search`.
 
 #### Program.cs methods:
 
@@ -96,6 +95,8 @@ Then go to `http://localhost:5042/scalar` to interact with the API.
 - `app.MapScalarApiReference`():
 
 #### Controllers methods:
+
+I forget why `IActionResult` result is sometimes used rather than `ActionResult`. The only thing I need to verify/understand in this file are the return values.
 
 - HttpGet -> GetAll -> ActionResult SearchService.GetAll -> return Ok()
 - HttpGet -> GetById -> ActionResult SearchService.Get -> return Ok()
@@ -106,22 +107,8 @@ Then go to `http://localhost:5042/scalar` to interact with the API.
 #### Services methods:
 
 - `List<SearchResult> SearchResults`
-- `Path.Combine(AppContext.BaseDirectory, "Resources", "results.json")`
-- GetAll -> return SearchResults
-- Get
-  - SearchResults.FirstOrDefault
-- Add
-  - AddRange
-  - Path.GetDirectoryName
-  - Directory.Exists
-  - Directory.CreateDirectory
-  - JsonSerializerOptions
-  - JsonSerializer.Serialize
-  - File.WriteAllText
-- Update
-  - SearchResults.FindIndex
 - Delete
-  - Get
+  - Get - shouldn't this use `FirstOrDefault` like `Update`, or should `Update` use `Get`?
   - SearchResults.Remove
 
 <span aria-hidden="true"><br></span>
@@ -219,11 +206,10 @@ Remember to add a .github folder with templates for issues and pull requests.
 
 > Later...
 
-1. Allow user to select a specificfolder to search. That means I need nother prompt. If thy choose to search a folder, then I need to print out all folders in Documents and make them selectable, then repeat. I could also allow the user to type in the specific folder name.
-2. Change user prompt and allow multiple search phrases separated by a comman, then Split on the comma and trim whitespace
-3. Search other file types. .json and .csv will be easy, .docx and .xls will require a Nuget package
-4.
-5.
+1. I already allow the user to select a specific folder to search, but you have to type out the correct folder path. I need to append to `Documents` when the user enters. It would be better to somehow allow the user to "browse" their system folders.
+2. Change user prompt and allow multiple search phrases separated by a comman, then `Split` on the comma and `Trim` whitespace
+3. Search other file types: _.json_ and _.csv_ will be easy, _.docx_ and _.xls_ will require a Nuget package
+4. ...
 
 <span aria-hidden="true"><br></span>
 
@@ -245,15 +231,14 @@ This project is licensed under the MIT License.
 
 ## 🚫 My temporary notes (remove later)
 
-> WebLabApi: use the Get and Get by id code in Console/Program.cs, and the Controller and Service code in .Api
-
+- Use `WebLabApi`, the Get and Get by id code in Console/Program.cs, and the Controller and Service code in .Api
 - Use `ContosoPizza` project as an example of an API with controllers ✅
 - Use `csharp-async-httpclient-example` project for using JsonSerializer.Deserialize and HttpClient in FileTextSearch.Console Program.cs file
 - Use the last meet recording to connect the API to the console app
   - https://drive.google.com/file/d/1CLTLijgt45c5LN3LbBDp-ewox-6ultjM/view
-- Use `csharp-JsonSerializer-example` to create a json file, JsonSerializer.Serialize + File.WriteAllText, File.ReadAllText + JsonSerializer.Deserialize
+  <!-- - Use `csharp-JsonSerializer-example` to create a json file, JsonSerializer.Serialize + File.WriteAllText, File.ReadAllText + JsonSerializer.Deserialize
   - Where would this go?
-  - This uses a users.json file I created - how do I generate a json file?
+  - This uses a users.json file I created - how do I generate a json file? -->
 
 ### Code notes
 
@@ -267,11 +252,11 @@ Setting every markdown file to upper or lower case is extreme for a string compa
 - Look into `AddRange()` - C# lists have a built-in method called AddRange() which inserts the entire list into your collection
   - .Add(item) — Takes one single item and puts it at the end of the list
   - .AddRange(collection) — Takes a list/collection of items and adds all of them into the list
-- Look into `AppContext.BaseDirectory()`
-  - built-in C# tool that finds the path to the folder where your program is compiled and running (usually deep inside a hidden folder called bin/Debug/net10.0)
 - The `ActionResult` type is the base class for all action results in ASP.NET Core.
   - It automatically returns data with a `Content-Type` value of `application/json`
   - what about IActionResult instead?
+  <!-- - Look into `AppContext.BaseDirectory()`
+  - built-in C# tool that finds the path to the folder where your program is compiled and running (usually deep inside a hidden folder called bin/Debug/net10.0) -->
 
 HttpClient
 
@@ -281,8 +266,6 @@ HttpClient
 
 Look at `WebApiLab` for more API code that connects to the console project, and `ClassLibraryProjects` for an example of unit testing
 
-http://localhost:5042/api/search
-
 <!--
-1.
+http://localhost:5042/api/search
  -->
