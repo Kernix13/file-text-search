@@ -59,21 +59,7 @@ while (true)
 }
 
 
-static async Task GetAll(HttpClient client)
-{
-    var results = await client.GetFromJsonAsync<List<SearchResult>>("/api/search");
 
-    if (results is null)
-    {
-        Console.WriteLine("No results returned from API.");
-        return;
-    }
-
-    foreach (var result in results)
-    {
-        Console.WriteLine($"{result.FileName}, {result.FullPath}");
-    }
-}
 
 static async Task SearchFiles(HttpClient client)
 {
@@ -197,10 +183,6 @@ static async Task SearchFiles(HttpClient client)
         }
     }
 
-    // GET all results: GetAsync
-
-    // GET by Id: GetAsync
-
     // POST
     if (results.Count == 0)
     {
@@ -238,6 +220,43 @@ static async Task SearchFiles(HttpClient client)
         Console.WriteLine($"Skipped {skippedFoldersCount} folders.");
     }
 }
-// UPDATE: PutAsJsonAsync
+
+// GET
+static async Task GetAll(HttpClient client)
+{
+    var results = await client.GetFromJsonAsync<List<SearchResult>>("/api/search");
+
+    if (results is null)
+    {
+        Console.WriteLine("No results returned from API.");
+        return;
+    }
+
+    foreach (var result in results)
+    {
+        Console.WriteLine($"{result.FileName}, {result.FullPath}");
+    }
+}
+
+// GET by Id: GetAsync or GetFromJsonAsync
+static async Task GetById(HttpClient client)
+{
+    Console.WriteLine("");
+    Console.WriteLine("The Id of the result you want to view");
+}
+
+// UPDATE: PutAsJsonAsync 
+static async Task UpdateById(HttpClient client)
+{
+    Console.WriteLine("");
+    Console.WriteLine("Result to update");
+}
 
 // DELETE: 
+static async Task DeleteById(HttpClient client)
+{
+    Console.WriteLine("");
+    Console.WriteLine("Result to delete");
+}
+
+
