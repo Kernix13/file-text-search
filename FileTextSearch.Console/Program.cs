@@ -6,6 +6,7 @@ Console.WriteLine("Client is configured");
 
 var searchService = new FileSearchService();
 
+
 while (true)
 {
     Console.WriteLine("");
@@ -58,7 +59,19 @@ static async Task RunSearch(HttpClient client, FileSearchService searchService)
         (Press Enter to use your Documents folder): ");
     string userFolder = Console.ReadLine() ?? "";
 
-    await searchService.SearchFiles(client, searchPhrase, userFolder);
+    var results = await searchService.SearchFiles(searchPhrase, userFolder);
+    await searchService.Create(client, results);
+
+    foreach (var result in results)
+    {
+        Console.WriteLine(result.Id);
+        Console.WriteLine(result.FileName);
+        Console.WriteLine(result.FullPath);
+        Console.WriteLine(result.Category);
+        Console.WriteLine(result.FileSize);
+        Console.WriteLine(result.Priority);
+        Console.WriteLine();
+    }
 }
 
 

@@ -17,108 +17,14 @@ public class FileSearchService
         "node_modules"
     ];
 
-    // POST
-    public async Task SearchFiles(HttpClient client, string searchPhrase, string userFolder)
+    int skippedFoldersCount;
+
+    // POST: Move WriteLine to the Program.cs file
+    public async Task Create(HttpClient client, List<SearchResult> results)
     {
-
-        string rootFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-
-        // Validate the user-provided folder path, if any, and set it as the root folder
-        if (userFolder != "")
-        {
-            if (Directory.Exists(userFolder))
-            {
-                rootFolder = userFolder;
-            }
-            else
-            {
-                System.Console.WriteLine("Folder not found.");
-                return;
-            }
-        }
-
-        System.Console.WriteLine();
-        System.Console.WriteLine($"{rootFolder} will be searched for '{searchPhrase}'");
-        System.Console.WriteLine();
-
-        // Initialize a counter for skipped folders
-        int skippedFoldersCount = 0;
-
-        // 6. Initialize a list to hold the folders to search, starting with the root folder
-        var foldersToSearch = new List<string> { rootFolder };
-
-        // 7. Initialize a list to hold the search results
-        List<SearchResult> results = new();
-
-        // 8. Start the search loop, which continues until there are no more folders to search
-        while (foldersToSearch.Count > 0)
-        {
-            // 9. Get the current folder to search and remove it from the list of folders to search 
-            var currentFolder = foldersToSearch[0];
-            foldersToSearch.RemoveAt(0);
-
-            try
-            {
-                // 10. Enumerate through all .md files in the current folder
-                foreach (var file in Directory.EnumerateFiles(currentFolder, "*.md"))
-                {
-                    try
-                    {
-                        string content = File.ReadAllText(file);
-
-                        if (content.Contains(searchPhrase, StringComparison.OrdinalIgnoreCase))
-                        {
-                            var info = new FileInfo(file);
-                            var result = new SearchResult();
-                            // Add each md file to the results List
-                            results.Add(new SearchResult
-                            {
-                                FileName = Path.GetFileName(file),
-                                FullPath = file,
-                                Category = "General",
-                                FileSize = info.Length,
-                                Priority = "Normal"
-                            });
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        System.Console.WriteLine($"Skipping {file}: {ex.Message}");
-                    }
-                }
-            }
-            catch (UnauthorizedAccessException)
-            {
-                // Skip the folder
-            }
-
-            try
-            {
-                // 11. Enumerate through all subdirectories in the current folder
-                foreach (var directory in Directory.EnumerateDirectories(currentFolder))
-                {
-                    string folderName = Path.GetFileName(directory);
-
-                    if (_ignoredFolders.Contains(folderName))
-                    {
-                        skippedFoldersCount++;
-                        continue;
-                    }
-                    // 12. Add the subdirectory to the list of folders to search
-                    foldersToSearch.Add(directory);
-                }
-
-            }
-            catch (UnauthorizedAccessException)
-            {
-                // Skip the folder
-            }
-        }
-
-        // POST
         if (results.Count == 0)
         {
-            System.Console.WriteLine($"No results found for '{searchPhrase}'.");
+            System.Console.WriteLine($"No results found.");
         }
         else
         {
@@ -134,17 +40,7 @@ public class FileSearchService
                 System.Console.WriteLine($"Failed to send data. API responded with: {response.StatusCode} - {errorReason}");
             }
 
-            foreach (var result in results)
-            {
-                System.Console.WriteLine(result.Id);
-                System.Console.WriteLine(result.FileName);
-                System.Console.WriteLine(result.FullPath);
-                System.Console.WriteLine(result.Category);
-                System.Console.WriteLine(result.FileSize);
-                System.Console.WriteLine(result.Priority);
-                System.Console.WriteLine();
-            }
-
+            // Does the user need this information?
             System.Console.WriteLine($"Skipped {skippedFoldersCount} folders.");
         }
     }
@@ -221,5 +117,105 @@ public class FileSearchService
         var response = await client.PutAsJsonAsync<SearchResult>($"/api/search/{id}", new SearchResult { Id = guid, Priority = priority ?? "Normal" });
     }
 
+    // Helper method to search files based on the search phrase and user-provided folder
+    public async Task<List<SearchResult>> SearchFiles(string searchPhrase, string userFolder)
+    {
+
+        string rootFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+        // Validate the user-provided folder path, if any, and set it as the root folder
+        if (userFolder != "")
+        {
+            if (Directory.Exists(userFolder))
+            {
+                rootFolder = userFolder;
+            }
+            else
+            {
+                System.Console.WriteLine("Folder not found.");
+                // return;
+            }
+        }
+
+        System.Console.WriteLine();
+        System.Console.WriteLine($"{rootFolder} will be searched for '{searchPhrase}'");
+        System.Console.WriteLine();
+
+        // Initialize a counter for skipped folders
+        skippedFoldersCount = 0;
+
+        // Initialize a list to hold the folders to search, starting with the root folder
+        var foldersToSearch = new List<string> { rootFolder };
+
+        // Initialize a list to hold the search results
+        List<SearchResult> results = new();
+
+        // Start the search loop, which continues until there are no more folders to search
+        while (foldersToSearch.Count > 0)
+        {
+            // Get the current folder to search and remove it from the list of folders to search 
+            var currentFolder = foldersToSearch[0];
+            foldersToSearch.RemoveAt(0);
+
+            try
+            {
+                // Enumerate through all .md files in the current folder
+                foreach (var file in Directory.EnumerateFiles(currentFolder, "*.md"))
+                {
+                    try
+                    {
+                        string content = File.ReadAllText(file);
+
+                        if (content.Contains(searchPhrase, StringComparison.OrdinalIgnoreCase))
+                        {
+                            var info = new FileInfo(file);
+                            var result = new SearchResult();
+                            // Add each md file to the results List
+                            results.Add(new SearchResult
+                            {
+                                FileName = Path.GetFileName(file),
+                                FullPath = file,
+                                Category = "General",
+                                FileSize = info.Length,
+                                Priority = "Normal"
+                            });
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Console.WriteLine($"Skipping {file}: {ex.Message}");
+                    }
+                }
+            }
+            catch (UnauthorizedAccessException)
+            {
+                // Skip the folder
+            }
+
+            try
+            {
+                // Enumerate through all subdirectories in the current folder
+                foreach (var directory in Directory.EnumerateDirectories(currentFolder))
+                {
+                    string folderName = Path.GetFileName(directory);
+
+                    if (_ignoredFolders.Contains(folderName))
+                    {
+                        skippedFoldersCount++;
+                        continue;
+                    }
+                    // Add the subdirectory to the list of folders to search
+                    foldersToSearch.Add(directory);
+                }
+
+            }
+            catch (UnauthorizedAccessException)
+            {
+                // Skip the folder
+            }
+        }
+
+        return results;
+    }
 }
 
