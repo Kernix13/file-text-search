@@ -165,5 +165,22 @@ public class FileSearchService
             System.Console.WriteLine($"{result.FileName}, {result.FullPath}, {result.Priority}");
         }
     }
+
+    // GET by Id: GetAsync or GetFromJsonAsync 
+    public async Task GetById(HttpClient client)
+    {
+        System.Console.WriteLine("Enter the Id of the result you want to view: ");
+        string? id = System.Console.ReadLine();
+        var result = await client.GetFromJsonAsync<SearchResult>($"/api/search/{id}");
+        if (result != null)
+        {
+            System.Console.WriteLine(result.FileName);
+            System.Console.WriteLine(result.FullPath);
+        }
+        else
+        {
+            System.Console.WriteLine($"No result found with ID: {id}");
+        }
+    }
 }
 

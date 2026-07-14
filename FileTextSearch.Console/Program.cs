@@ -30,7 +30,7 @@ while (true)
             break;
         case "3":
             Console.WriteLine("");
-            await GetById(client);
+            await searchService.GetById(client);
             break;
         case "4":
             Console.WriteLine("");
@@ -61,23 +61,6 @@ static async Task RunSearch(HttpClient client, FileSearchService searchService)
     string userFolder = Console.ReadLine() ?? "";
 
     await searchService.SearchFiles(client, searchPhrase, userFolder);
-}
-
-// GET by Id: GetAsync or GetFromJsonAsync 
-static async Task GetById(HttpClient client)
-{
-    Console.WriteLine("Enter the Id of the result you want to view: ");
-    string? id = Console.ReadLine();
-    var result = await client.GetFromJsonAsync<SearchResult>($"/api/search/{id}");
-    if (result != null)
-    {
-        Console.WriteLine(result.FileName);
-        Console.WriteLine(result.FullPath);
-    }
-    else
-    {
-        Console.WriteLine($"No result found with ID: {id}");
-    }
 }
 
 // DELETE: 
