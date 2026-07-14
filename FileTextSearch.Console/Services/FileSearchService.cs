@@ -5,7 +5,19 @@ namespace FileTextSearch.Console.Services;
 
 public class FileSearchService
 {
-    string[] allowedExtensions = new[] { "*.md", "*.txt", "*.html" };
+    // Not currently used, but will be used for future enhancements
+    private readonly string[] _allowedExtensions = new[] { "*.md", "*.txt", "*.html" };
+
+    // Define a list of folders to ignore during the search
+    private readonly HashSet<string> _ignoredFolders =
+    [
+        "bin",
+        "obj",
+        ".git",
+        "node_modules"
+    ];
+
+    // POST
     public async Task SearchFiles(HttpClient client, string searchPhrase, string userFolder)
     {
 
@@ -29,19 +41,8 @@ public class FileSearchService
         System.Console.WriteLine($"{rootFolder} will be searched for '{searchPhrase}'");
         System.Console.WriteLine();
 
-        // 4. Define a list of folders to ignore during the search
-        HashSet<string> ignoredFolders = new()
-        {
-            "bin",
-            "obj",
-            ".git",
-            "node_modules"
-        };
-
-        // 5. Initialize a counter for skipped folders and a list to hold the folders to search
+        // Initialize a counter for skipped folders
         int skippedFoldersCount = 0;
-
-
 
         // 6. Initialize a list to hold the folders to search, starting with the root folder
         var foldersToSearch = new List<string> { rootFolder };
@@ -88,8 +89,7 @@ public class FileSearchService
             }
             catch (UnauthorizedAccessException)
             {
-                // Log it or just silently skip the folder
-                // System.Console.WriteLine($"Skipped (Access Denied): {currentFolder}");
+                // Skip the folder
             }
 
             try
@@ -99,7 +99,7 @@ public class FileSearchService
                 {
                     string folderName = Path.GetFileName(directory);
 
-                    if (ignoredFolders.Contains(folderName))
+                    if (_ignoredFolders.Contains(folderName))
                     {
                         skippedFoldersCount++;
                         continue;
@@ -111,8 +111,7 @@ public class FileSearchService
             }
             catch (UnauthorizedAccessException)
             {
-                // Log it or just silently skip the folder
-                // System.Console.WriteLine($"Skipped (Access Denied): {currentFolder}");
+                // Skip the folder
             }
         }
 
@@ -147,6 +146,23 @@ public class FileSearchService
             }
 
             System.Console.WriteLine($"Skipped {skippedFoldersCount} folders.");
+        }
+    }
+
+    // GET
+    public async Task GetAll(HttpClient client)
+    {
+        var results = await client.GetFromJsonAsync<List<SearchResult>>("/api/search");
+
+        if (results is null)
+        {
+            System.Console.WriteLine("No results returned from API.");
+            return;
+        }
+
+        foreach (var result in results)
+        {
+            System.Console.WriteLine($"{result.FileName}, {result.FullPath}, {result.Priority}");
         }
     }
 }

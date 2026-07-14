@@ -22,13 +22,11 @@ while (true)
     switch (choice)
     {
         case "1":
-            // await SearchFiles(client);
-            // await searchService.SearchFiles(client);
             await RunSearch(client, searchService);
             break;
         case "2":
             Console.WriteLine("");
-            await GetAll(client);
+            await searchService.GetAll(client);
             break;
         case "3":
             Console.WriteLine("");
@@ -63,23 +61,6 @@ static async Task RunSearch(HttpClient client, FileSearchService searchService)
     string userFolder = Console.ReadLine() ?? "";
 
     await searchService.SearchFiles(client, searchPhrase, userFolder);
-}
-
-// GET
-static async Task GetAll(HttpClient client)
-{
-    var results = await client.GetFromJsonAsync<List<SearchResult>>("/api/search");
-
-    if (results is null)
-    {
-        Console.WriteLine("No results returned from API.");
-        return;
-    }
-
-    foreach (var result in results)
-    {
-        Console.WriteLine($"{result.FileName}, {result.FullPath}, {result.Priority}");
-    }
 }
 
 // GET by Id: GetAsync or GetFromJsonAsync 
