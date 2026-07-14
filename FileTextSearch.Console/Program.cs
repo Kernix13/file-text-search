@@ -74,4 +74,6 @@ static async Task RunSearch(HttpClient client, FileSearchService searchService)
     }
 }
 
+// Should I create helper methods for the other options? I don't think I should have WriteLine or ReadLine statements in the service class.
+
 

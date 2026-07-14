@@ -5,7 +5,7 @@ namespace FileTextSearch.Console.Services;
 
 public class FileSearchService
 {
-    // Not currently used, but will be used for future enhancements
+    // Not currently used, but will be used for future enhancements. But I think I should prompt the user to enter a list of file extensions to search for, instead of hardcoding them. But then that will create the need for a nested loop!
     private readonly string[] _allowedExtensions = new[] { "*.md", "*.txt", "*.html" };
 
     // Define a list of folders to ignore during the search
@@ -24,7 +24,7 @@ public class FileSearchService
     {
         if (results.Count == 0)
         {
-            System.Console.WriteLine($"No results found.");
+            System.Console.WriteLine($"No results found for search phrase.");
         }
         else
         {
@@ -133,7 +133,7 @@ public class FileSearchService
             else
             {
                 System.Console.WriteLine("Folder not found.");
-                // return;
+                // return; // this was giving me an error?!?
             }
         }
 
