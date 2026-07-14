@@ -198,5 +198,28 @@ public class FileSearchService
             System.Console.WriteLine($"Failed to delete result with ID: {id}");
         }
     }
+
+    // UPDATE: Move Writeline and ReadLine to the Program.cs file
+    public async Task UpdateById(HttpClient client)
+    {
+        System.Console.WriteLine("Enter the Id of the result you want to edit: ");
+        string? id = System.Console.ReadLine();
+        System.Console.WriteLine("Enter the new priority value (High/Low): ");
+        string? priority = System.Console.ReadLine();
+        if (string.IsNullOrWhiteSpace(id))
+        {
+            System.Console.WriteLine("Invalid Id.");
+            return;
+        }
+
+        if (!Guid.TryParse(id, out var guid))
+        {
+            System.Console.WriteLine("Invalid GUID format.");
+            return;
+        }
+
+        var response = await client.PutAsJsonAsync<SearchResult>($"/api/search/{id}", new SearchResult { Id = guid, Priority = priority ?? "Normal" });
+    }
+
 }
 

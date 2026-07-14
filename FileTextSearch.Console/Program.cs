@@ -1,6 +1,4 @@
-﻿using System.Net.Http.Json;
-using FileTextSearch.Console.Models;
-using FileTextSearch.Console.Services;
+﻿using FileTextSearch.Console.Services;
 
 using var client = new HttpClient();
 client.BaseAddress = new Uri("http://localhost:5042");
@@ -34,7 +32,7 @@ while (true)
             break;
         case "4":
             Console.WriteLine("");
-            await UpdateById(client);
+            await searchService.UpdateById(client);
             break;
         case "5":
             Console.WriteLine("");
@@ -61,28 +59,6 @@ static async Task RunSearch(HttpClient client, FileSearchService searchService)
     string userFolder = Console.ReadLine() ?? "";
 
     await searchService.SearchFiles(client, searchPhrase, userFolder);
-}
-
-// UPDATE:  
-static async Task UpdateById(HttpClient client)
-{
-    Console.WriteLine("Enter the Id of the result you want to edit: ");
-    string? id = Console.ReadLine();
-    Console.WriteLine("Enter the new priority value (High/Low): ");
-    string? priority = Console.ReadLine();
-    if (string.IsNullOrWhiteSpace(id))
-    {
-        Console.WriteLine("Invalid Id.");
-        return;
-    }
-
-    if (!Guid.TryParse(id, out var guid))
-    {
-        Console.WriteLine("Invalid GUID format.");
-        return;
-    }
-
-    var response = await client.PutAsJsonAsync<SearchResult>($"/api/search/{id}", new SearchResult { Id = guid, Priority = priority ?? "Normal" });
 }
 
 
