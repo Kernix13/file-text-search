@@ -38,7 +38,7 @@ while (true)
             break;
         case "5":
             Console.WriteLine("");
-            await DeleteById(client);
+            await searchService.DeleteById(client);
             break;
         case "6":
             return;
@@ -61,22 +61,6 @@ static async Task RunSearch(HttpClient client, FileSearchService searchService)
     string userFolder = Console.ReadLine() ?? "";
 
     await searchService.SearchFiles(client, searchPhrase, userFolder);
-}
-
-// DELETE: 
-static async Task DeleteById(HttpClient client)
-{
-    Console.WriteLine("Enter the Id of the result you want to delete: ");
-    string? id = Console.ReadLine();
-    var response = await client.DeleteAsync($"/api/search/{id}");
-    if (response.IsSuccessStatusCode)
-    {
-        Console.WriteLine("Result deleted successfully.");
-    }
-    else
-    {
-        Console.WriteLine($"Failed to delete result with ID: {id}");
-    }
 }
 
 // UPDATE:  

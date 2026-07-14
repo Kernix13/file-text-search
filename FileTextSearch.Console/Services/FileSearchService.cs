@@ -149,7 +149,7 @@ public class FileSearchService
         }
     }
 
-    // GET
+    // GET: Move WriteLine to the Program.cs file
     public async Task GetAll(HttpClient client)
     {
         var results = await client.GetFromJsonAsync<List<SearchResult>>("/api/search");
@@ -166,7 +166,7 @@ public class FileSearchService
         }
     }
 
-    // GET by Id: GetAsync or GetFromJsonAsync 
+    // GET by Id: Move Writeline and ReadLine to the Program.cs file 
     public async Task GetById(HttpClient client)
     {
         System.Console.WriteLine("Enter the Id of the result you want to view: ");
@@ -180,6 +180,22 @@ public class FileSearchService
         else
         {
             System.Console.WriteLine($"No result found with ID: {id}");
+        }
+    }
+
+    // DELETE: Move Writeline and ReadLine to the Program.cs file
+    public async Task DeleteById(HttpClient client)
+    {
+        System.Console.WriteLine("Enter the Id of the result you want to delete: ");
+        string? id = System.Console.ReadLine();
+        var response = await client.DeleteAsync($"/api/search/{id}");
+        if (response.IsSuccessStatusCode)
+        {
+            System.Console.WriteLine("Result deleted successfully.");
+        }
+        else
+        {
+            System.Console.WriteLine($"Failed to delete result with ID: {id}");
         }
     }
 }
