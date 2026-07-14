@@ -13,12 +13,6 @@ Here is the structure this project will have when complete:
 3. FileTextSearch.Tests/ using xUnit (📌 Next)
 4. FileTextSearch.Web/ using React
 
-<!--
-  namespace: FileTextSearch
-  About text: ?
-  Topics: csharp,
- -->
-
 <span aria-hidden="true"><br></span>
 
 ## Prerequisites
@@ -59,8 +53,6 @@ I am not sure of all the steps I will need to add here, but it will most likely 
 - Run the Console app (FileTextSearch.Console)
 - Run the React web app
 - Run the xUnit tests
-
-I will need cd commands depending on the project!
 
 <!-- ### <span aria-hidden="true">⚡</span> Quick Start
 
