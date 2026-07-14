@@ -117,7 +117,7 @@ dotnet run -p FileTextSearch.Console
 
 Methods & notes:
 
-The property `Category` is meant to be the folder path AFTER `Documents` and with the filename and exension. Right now it is set to "General", but I would like the folder path so that when/if I get to React, I can create sections based on that value.
+The property `Category` is meant to be the folder path AFTER `Documents` and without the filename and exension. Right now it is set to "General", but I would like the folder path so that when/if I get to React, I can create sections based on that value.
 
 - `StringComparison.OrdinalIgnoreCase`: case-insensitive string comparison used with the user search phrase to find marrkdown files with that phrase
 - `UnauthorizedAccessException`: occurs when enumerating the files in a directory which I ran into when searching the Documents folder
