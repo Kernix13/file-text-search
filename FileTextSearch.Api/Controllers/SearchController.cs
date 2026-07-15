@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using FileTextSearch.Api.Models;
-using FileTextSearch.Services;
+using FileTextSearch.Api.Services;
 
-namespace FileTextSearch.Controllers;
+namespace FileTextSearch.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")] // This makes the URL: api/search
