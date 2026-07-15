@@ -5,9 +5,10 @@ namespace FileTextSearch.Api.Services;
 public static class SearchService
 {
 
+    // This as a static property is a problem I think.
     public static List<SearchResult> SearchResults { get; } = new List<SearchResult>();
 
-    // Do I have a constructor here?
+    // Do I need a constructor here?
 
     // GET: api/search
     public static List<SearchResult> GetAll() => SearchResults;

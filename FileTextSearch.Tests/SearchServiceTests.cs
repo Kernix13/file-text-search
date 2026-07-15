@@ -21,4 +21,41 @@ public class SearchServiceTests
         Assert.Single(SearchService.SearchResults);
         Assert.Equal("test.txt", SearchService.SearchResults[0].FileName);
     }
+
+    // They failed, I had to run them individually to get them to pass
+    [Fact]
+    public void GetAll_ReturnsAllSearchResults()
+    {
+
+        // Arrange
+        SearchService.SearchResults.Clear();
+        var results = new List<SearchResult>
+        {
+            new SearchResult { FileName = "test1.txt" },
+            new SearchResult { FileName = "test2.txt" }
+        };
+
+        SearchService.Add(results);
+
+        // Act
+        var returnedResults = SearchService.GetAll();
+
+        // Assert
+        Assert.Equal(2, returnedResults.Count);
+    }
+
+    [Fact]
+    public void Delete_WithExistingId_RemovesSearchResult()
+    {
+        // Arrange
+        SearchService.SearchResults.Clear();
+        var result = new SearchResult { Id = Guid.NewGuid(), FileName = "delete.txt" };
+        SearchService.Add(new List<SearchResult> { result });
+
+        // Act
+        SearchService.Delete(result.Id);
+
+        // Assert
+        Assert.Empty(SearchService.SearchResults);
+    }
 }
