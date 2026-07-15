@@ -1,6 +1,6 @@
 using FileTextSearch.Api.Models;
 
-namespace FileTextSearch.Services;
+namespace FileTextSearch.Api.Services;
 
 public static class SearchService
 {
