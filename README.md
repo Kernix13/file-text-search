@@ -10,7 +10,7 @@ Here is the structure this project will have when complete:
 2. FileTextSearch.Console/ (✅ Done)
    - Menu done ✅
    - Full CRUD done ✅
-3. FileTextSearch.Tests/ using xUnit (📌 Next)
+3. FileTextSearch.Tests/ using xUnit (✅ 📌 Started but with issues)
 4. FileTextSearch.Web/ using React
 
 <span aria-hidden="true"><br></span>
@@ -41,6 +41,7 @@ Here is the structure this project will have when complete:
    dotnet run --project FileTextSearch.Console
 
    # Command to run the Unit Tests
+   dotnet test
 
    # Command to run the React app
    cd FileTextSearch.Web
@@ -139,7 +140,9 @@ The property `Category` is meant to be the folder path AFTER `Documents` and wit
 Run the xUnit tests
 
 ```bash
-#
+# Run the tests from root
+dotnet test
+# But they need to be run individually or they fail
 ```
 
 <span aria-hidden="true"><br></span>
