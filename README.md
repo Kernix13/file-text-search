@@ -204,9 +204,10 @@ Remember to add a .github folder with templates for issues and pull requests.
 > Later...
 
 1. I already allow the user to select a specific folder to search, but you have to type out the correct folder path. I need to append to `Documents` when the user enters. It would be better to somehow allow the user to "browse" their system folders.
+   - ✅ I have added this but you need the full path like `C:/Users/pc/Documents/WebDev/CodeYou`. That is cumbersome
 2. Change user prompt and allow multiple search phrases separated by a comman, then `Split` on the comma and `Trim` whitespace
 3. Search other file types: _.json_ and _.csv_ will be easy, _.docx_ and _.xls_ will require a Nuget package
-4. ...
+4. I want to also be able to search for filename + extension like `reset.css`
 
 <span aria-hidden="true"><br></span>
 
