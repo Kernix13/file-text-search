@@ -227,8 +227,8 @@ If I add React, add this to above
 1. .NET SDK 10.0
 2. C# Dex Kit VS Code extension
 3. xUnit testing library
-4. Node.js
-5. React (not implemented yet)
+4. Node.js (not added yet)
+5. React (not added yet)
 
 <span aria-hidden="true"><br></span>
 
