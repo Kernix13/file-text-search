@@ -166,9 +166,9 @@ npm run dev
 
 ## Project structure
 
-Remember to add a .github folder with templates for issues and pull requests.
+Remember to add a `.github` folder with templates for issues and pull requests.
 
-```python
+<!-- ```python
 file-text-search/
 ├── FileTextSearch.Api/
 │   ├── Controllers/
@@ -185,7 +185,7 @@ file-text-search/
 └── README.md
 ```
 
-Or maybe this:
+Or maybe this: -->
 
 ```python
 file-text-search/
@@ -208,6 +208,16 @@ file-text-search/
 ├── .gitignore
 ├── FileTextSearch.slnx
 └── README.md
+```
+
+If I add React, add this to above
+
+```python
+├── FileTextSearch.Web/
+│   ├── src/
+│   ├── public/
+│   ├── package.json
+│   └── vite.config.js
 ```
 
 <span aria-hidden="true"><br></span>
