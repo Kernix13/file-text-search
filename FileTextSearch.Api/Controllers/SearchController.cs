@@ -8,7 +8,7 @@ namespace FileTextSearch.Api.Controllers;
 [Route("api/[controller]")] // This makes the URL: api/search
 public class SearchController : ControllerBase
 {
-    // This is from WebApiLab, but I don't think it's needed here. I think the service is enough.
+    // This is from WebApiLab project, but I don't think it's needed here. I think the service is enough.
     private List<SearchResult> results = new List<SearchResult>();
 
     public SearchController()

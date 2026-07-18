@@ -2,7 +2,7 @@
 
 This project will enable the user to search a word or phrase and return the full path for any text file (.md, .txt, .html) that contains the search phrase. Implementation only for markdown files at this point.
 
-The point of the project is to consolidate my various notes, which are mainly in markdown files, into a master file or folder. For example, I have multiple files and notes involving CSS resets. These notes and files are spread across many folders and I can't always remember where they are.
+The point of the project is to consolidate notes in various files, into a master file or folder. But you have to track down your notes by subject first. For example, I have multiple files and notes involving CSS resets. These notes and files are spread across many folders and I can't always remember where they are.
 
 Here is the structure this project will have when complete:
 
@@ -31,37 +31,42 @@ Here is the structure this project will have when complete:
    cd file-text-search
    ```
 
-2. Run the application (not sure if this is how this should look)
+2. Start the API then visit `http://localhost:5042/scalar/`:
 
    ```bash
-   # Command to run the API
    dotnet run --project FileTextSearch.Api
+   ```
 
-   # Command to run the Console app
+3. Open 2nd terminal and run the Console app
+
+   ```sh
    dotnet run --project FileTextSearch.Console
+   ```
 
-   # Command to run the Unit Tests
+4. Run xUnit tests:
+
+   ```sh
    dotnet test
+   ```
 
-   # Command to run the React app
+5. View React front end UI:
+
+   ```sh
    cd FileTextSearch.Web
+   npm install
    npm run dev
    ```
 
-I am not sure of all the steps I will need to add here, but it will most likely include:
+### <span aria-hidden="true">⚡</span> Console menu
 
-- Run the Web API (FileTextSearch.Api)
-- Run the Console app (FileTextSearch.Console)
-- Run the React web app
-- Run the xUnit tests
-
-<!-- ### <span aria-hidden="true">⚡</span> Quick Start
-
-```sh
-git clone https://github.com/Kernix13/file-text-search.git
-cd file-text-search
-dotnet run
-``` -->
+```
+1. Search Files
+2. View All Search Results
+3. View Search Result by Id
+4. Update Search Result
+5. Delete Search Result
+6. Exit
+```
 
 <span aria-hidden="true"><br></span>
 
@@ -137,12 +142,11 @@ The property `Category` is meant to be the folder path AFTER `Documents` and wit
 
 ### Testing Project
 
-Run the xUnit tests
+Run the xUnit tests but they need to be run individually or they fail. I am working on fixing my code so that does not happen.
 
 ```bash
 # Run the tests from root
 dotnet test
-# But they need to be run individually or they fail
 ```
 
 <span aria-hidden="true"><br></span>
@@ -153,6 +157,7 @@ Run the React UI app
 
 ```bash
 cd FileTextSearch.Web
+npm install
 npm run dev
 # open http://localhost:5195
 ```
@@ -164,18 +169,69 @@ npm run dev
 Remember to add a .github folder with templates for issues and pull requests.
 
 ```python
-# Add later
+file-text-search/
+├── FileTextSearch.Api/
+│   ├── Controllers/
+│   ├── Models/
+│   ├── Services/
+│   └── Program.cs
+├── FileTextSearch.Console/
+│   ├── Models/
+│   ├── Services/
+│   └── Program.cs
+├── FileTextSearch.Tests/
+├── .gitignore
+├── FileTextSearch.slnx
+└── README.md
+```
+
+Or maybe this:
+
+```python
+file-text-search/
+├── FileTextSearch.Api/
+│   ├── Controllers/
+│   │   └── SearchController.cs
+│   ├── Models/
+│   │   └── SearchResult.cs
+│   ├── Services/
+│   │   └── SearchService.cs
+│   └── Program.cs
+├── FileTextSearch.Console/
+│   ├── Models/
+│   │   └── SearchResult.cs
+│   ├── Services/
+│   │   └── FileSearchService.cs
+│   └── Program.cs
+├── FileTextSearch.Tests/
+│   └── SearchServiceTests.cs
+├── .gitignore
+├── FileTextSearch.slnx
+└── README.md
 ```
 
 <span aria-hidden="true"><br></span>
 
 ## Tech Stack
 
-> Later...
+1. .NET SDK 10.0
+2. C# Dex Kit VS Code extension
+3. xUnit testing library
+4. Node.js
+5. React (not implemented yet)
 
 <span aria-hidden="true"><br></span>
 
 ## Capstone Questions
+
+1. Why this project?
+   - Later...
+2. What did I learn from this project?
+   - Later...
+3. What did I from the Code:You C# Software Development pathway?
+   - Later...
+4. What would I have done differently for this project?
+   - Later...
 
 > Later...
 
@@ -203,7 +259,7 @@ Remember to add a .github folder with templates for issues and pull requests.
 
 > Later...
 
-1. I already allow the user to select a specific folder to search, but you have to type out the correct folder path. I need to append to `Documents` when the user enters. It would be better to somehow allow the user to "browse" their system folders.
+1. I already allow the user to select a specific folder to search, but you have to type out the full folder path. It would be better to somehow allow the user to "browse" their system folders.
    - ✅ I have added this but you need the full path like `C:/Users/pc/Documents/WebDev/CodeYou`. That is cumbersome
 2. Change user prompt and allow multiple search phrases separated by a comman, then `Split` on the comma and `Trim` whitespace
 3. Search other file types: _.json_ and _.csv_ will be easy, _.docx_ and _.xls_ will require a Nuget package
