@@ -6,7 +6,6 @@ Console.WriteLine("Client is configured");
 
 var searchService = new FileSearchService();
 
-
 while (true)
 {
     Console.WriteLine("");
