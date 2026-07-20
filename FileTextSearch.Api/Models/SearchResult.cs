@@ -2,7 +2,6 @@ namespace FileTextSearch.Api.Models;
 
 public class SearchResult
 {
-    // Generates a brand new, completely unique ID automatically whenever a result is created
     public Guid Id { get; set; } = Guid.NewGuid();
     public string FileName { get; set; } = string.Empty;
     public string FullPath { get; set; } = string.Empty;

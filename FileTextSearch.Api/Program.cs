@@ -1,8 +1,9 @@
+using FileTextSearch.Api.Services;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.AddSingleton<SearchService>();
 
 builder.Services.AddControllers();
 

@@ -10,8 +10,8 @@ Here is the structure this project will have when complete:
 2. FileTextSearch.Console/ (✅ Done)
    - Menu done ✅
    - Full CRUD done ✅
-3. FileTextSearch.Tests/ using xUnit (✅ 📌 Started but with issues)
-4. FileTextSearch.Web/ using React
+3. FileTextSearch.Tests/ using xUnit (✅ Done)
+4. FileTextSearch.Web/ using React (📌 Next)
 
 <span aria-hidden="true"><br></span>
 
@@ -49,7 +49,7 @@ Here is the structure this project will have when complete:
    dotnet test
    ```
 
-5. View React front end UI:
+5. View React front end UI (not added yet):
 
    ```sh
    cd FileTextSearch.Web
@@ -57,22 +57,11 @@ Here is the structure this project will have when complete:
    npm run dev
    ```
 
-### <span aria-hidden="true">⚡</span> Console menu
-
-```
-1. Search Files
-2. View All Search Results
-3. View Search Result by Id
-4. Update Search Result
-5. Delete Search Result
-6. Exit
-```
-
 <span aria-hidden="true"><br></span>
 
-### API Project
+## API Project
 
-#### Run the API
+### Run the API
 
 ```bash
 # From project root
@@ -87,14 +76,13 @@ dotnet add package Scalar.AspNetCore
 
 Then go to `http://localhost:5042/scalar` to interact with the API. The API is at `http://localhost:5042/api/search`.
 
-#### Program.cs methods:
+### Program.cs methods:
 
 - `using Scalar.AspNetCore`:
-- `app.MapScalarApiReference`():
+- `app.MapScalarApiReference()`:
+- `builder.Services.AddSingleton()`:
 
-#### Controllers methods:
-
-I forget why `IActionResult` result is sometimes used rather than `ActionResult`. The only thing I need to verify/understand in this file are the return values.
+### Controllers methods:
 
 - HttpGet -> GetAll -> ActionResult SearchService.GetAll -> return Ok()
 - HttpGet -> GetById -> ActionResult SearchService.Get -> return Ok()
@@ -102,7 +90,15 @@ I forget why `IActionResult` result is sometimes used rather than `ActionResult`
 - HttpPut -> Update -> IActionResult SearchService.Get -> return NoContent()
 - HttpDelete -> Delete -> IActionResult SearchService.Get -> return NoContent()
 
-#### Services methods:
+IActionResult:
+
+- `IActionResult` lets the client know if the request succeeded and provides the ID of the newly created pizza
+- `IActionResult` uses standard HTTP status codes, so it can easily integrate with clients regardless of the language or platform they're running on
+- `IActionResult` use case: Complex logic with highly dynamic responses.
+  - It gives you total freedom to return any status code helper method (`Ok`, `NotFound`, `BadRequest`).
+  - However, to document the API for tools like Swagger, you have to manually decorate the method with attributes
+
+### Services methods:
 
 - `List<SearchResult> SearchResults`
 - Delete
@@ -111,7 +107,7 @@ I forget why `IActionResult` result is sometimes used rather than `ActionResult`
 
 <span aria-hidden="true"><br></span>
 
-### Console Project
+## Console Project
 
 Run the Console app
 
@@ -121,7 +117,18 @@ dotnet run --project FileTextSearch.Console # or
 dotnet run -p FileTextSearch.Console
 ```
 
-Methods & notes:
+### Console menu
+
+```
+1. Search Files
+2. View All Search Results
+3. View Search Result by Id
+4. Update Search Result
+5. Delete Search Result
+6. Exit
+```
+
+### Methods & notes:
 
 The property `Category` is meant to be the folder path AFTER `Documents` and without the filename and exension. Right now it is set to "General", but I would like the folder path so that when/if I get to React, I can create sections based on that value.
 
@@ -140,7 +147,7 @@ The property `Category` is meant to be the folder path AFTER `Documents` and wit
 
 <span aria-hidden="true"><br></span>
 
-### Testing Project
+## Testing Project
 
 Run the xUnit tests but they need to be run individually or they fail. I am working on fixing my code so that does not happen.
 
@@ -151,7 +158,7 @@ dotnet test
 
 <span aria-hidden="true"><br></span>
 
-### React Project (OPTIONAL)
+## React Project (not included yet)
 
 Run the React UI app
 
@@ -235,33 +242,27 @@ If I add React, add this to above
 ## Capstone Questions
 
 1. Why this project?
-   - Later...
+   - The search results in Windows File Explorer returns results that Ido not want, so I wanted to create a custom search to organize all my notes on web development.
 2. What did I learn from this project?
-   - Later...
-3. What did I from the Code:You C# Software Development pathway?
-   - Later...
+   - I have a better understanding of Object OrientedProgramming and insight into how to build and implement an API.
+3. What did I learn from the Code:You C# Software Development pathway?
+   - I found C# difficult but understanding the importance of data types was important to learn. I hope to convert my JavaScript projectsto TypeScript in the near future.
 4. What would I have done differently for this project?
-   - Later...
-
-> Later...
+   - I wish that Icouldhave used a database and create aJSON file rather than use in memory for the data.
 
 <span aria-hidden="true"><br></span>
 
 ## AI Usage
 
-> Later...
+1. I originally wanted to create a JSON file for my search results (POST) whichI did, but I was not able to to get GET working so I asked ChatGPT what the problem was. It showed me code to fix it, but since it was not what was covered in any of the lessons, I abandoned that approach and changed to "in memory" for the API.
+2. My tests were failing in random order so I asked GPT why after showing the errors. It was because of my `static` class and methods in `SearchService.cs`. I removed the `static` and made changes in SearchController.cs, Program.cs, and SearchServiceTests.cs
 
 <span aria-hidden="true"><br></span>
 
 ## Acknowledgments & Resources
 
-> Later...
-
-1.
+1. [Dependency injection for .NET APIs](https://youtu.be/LpBdpoHD50I): This was helpful for how to inject my services into Program.cs for use there.
 2.
-3.
-4.
-5.
 
 <span aria-hidden="true"><br></span>
 

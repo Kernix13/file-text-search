@@ -2,29 +2,28 @@ using FileTextSearch.Api.Models;
 
 namespace FileTextSearch.Api.Services;
 
-public static class SearchService
+public class SearchService
 {
 
-    // This as a static property is a problem I think.
-    public static List<SearchResult> SearchResults { get; } = new List<SearchResult>();
+    public List<SearchResult> SearchResults { get; } = new List<SearchResult>();
 
     // Do I need a constructor here?
 
     // GET: api/search
-    public static List<SearchResult> GetAll() => SearchResults;
+    public List<SearchResult> GetAll() => SearchResults;
 
     // GET: api/search/{id}
-    public static SearchResult? Get(Guid id) => SearchResults.FirstOrDefault(result => result.Id == id);
+    public SearchResult? Get(Guid id) => SearchResults.FirstOrDefault(result => result.Id == id);
 
     // POST: api/search
-    public static void Add(List<SearchResult> newResults)
+    public void Add(List<SearchResult> newResults)
     {
-        SearchResults.Clear();
+        // SearchResults.Clear();
         SearchResults.AddRange(newResults);
     }
 
     // PUT: api/search/{id}
-    public static void Update(SearchResult searchResult)
+    public void Update(SearchResult searchResult)
     {
         var result = SearchResults.FirstOrDefault(x => x.Id == searchResult.Id);
         if (result is null)
@@ -34,7 +33,7 @@ public static class SearchService
     }
 
     // DELETE: api/search/{id}
-    public static void Delete(Guid id)
+    public void Delete(Guid id)
     {
         var searchResult = Get(id);
         if (searchResult is null) return;
