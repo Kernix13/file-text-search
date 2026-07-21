@@ -118,10 +118,21 @@ public class FileSearchService
     }
 
     // Helper method to search files based on the search phrase and user-provided folder
-    public async Task<List<SearchResult>> SearchFiles(string searchPhrase, string userFolder)
+    public async Task<List<SearchResult>> SearchFiles(string searchPhrase, string userFolder, string fileType)
     {
 
         string rootFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        // Add or remove your preferred plain-text file type extensions here:
+        string[] allowedExtensions = new[] {
+            "md", "mdx",
+            "txt", "csv",
+            "css",
+            "html",
+            "cs",
+            "py",
+            "js", "ts", "jsx", "tsx",
+            "json"
+        };
 
         // Validate the user-provided folder path, if any, and set it as the root folder
         if (userFolder != "")
@@ -135,6 +146,15 @@ public class FileSearchService
                 System.Console.WriteLine("Folder not found.");
                 // return; // this was giving me an error?!?
             }
+        }
+
+        if (fileType == "")
+        {
+            fileType = "md";
+        }
+        else if (!allowedExtensions.Contains(fileType))
+        {
+            System.Console.WriteLine($"Invalid file type, {fileType} not supported.");
         }
 
         System.Console.WriteLine();
@@ -160,7 +180,7 @@ public class FileSearchService
             try
             {
                 // Enumerate through all .md files in the current folder
-                foreach (var file in Directory.EnumerateFiles(currentFolder, "*.md"))
+                foreach (var file in Directory.EnumerateFiles(currentFolder, $"*.{fileType}"))
                 {
                     try
                     {
