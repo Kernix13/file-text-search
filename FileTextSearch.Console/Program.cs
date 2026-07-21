@@ -50,17 +50,17 @@ while (true)
 // Helper method for running the search with user input
 static async Task RunSearch(HttpClient client, FileSearchService searchService)
 {
-    Console.Write("Enter search phrase: ");
+    Console.Write("📌 Enter search phrase: ");
     string searchPhrase = Console.ReadLine() ?? "";
 
     Console.Write(
-        @"Enter text file type to search
+        @"📌 Enter text file type to search
         Options: md, txt, csv, css, js, json, html
         (Press Enter for md files): ");
     string fileType = Console.ReadLine() ?? "";
 
     Console.Write(
-        @"Enter complete folder path to search
+        @"📌 Enter complete folder path to search
         (Press Enter to use your Documents folder): ");
     string userFolder = Console.ReadLine() ?? "";
 

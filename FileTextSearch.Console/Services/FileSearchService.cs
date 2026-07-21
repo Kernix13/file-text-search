@@ -5,8 +5,17 @@ namespace FileTextSearch.Console.Services;
 
 public class FileSearchService
 {
-    // Not currently used, but will be used for future enhancements. But I think I should prompt the user to enter a list of file extensions to search for, instead of hardcoding them. But then that will create the need for a nested loop!
-    private readonly string[] _allowedExtensions = new[] { "*.md", "*.txt", "*.html" };
+    // Add or remove your preferred plain-text file type extensions here:
+    private readonly string[] _allowedExtensions = new[] {
+        "md", "mdx",
+        "txt", "csv",
+        "css",
+        "html",
+        "cs",
+        "py",
+        "js", "ts", "jsx", "tsx",
+        "json"
+    };
 
     // Define a list of folders to ignore during the search
     private readonly HashSet<string> _ignoredFolders =
@@ -24,7 +33,7 @@ public class FileSearchService
     {
         if (results.Count == 0)
         {
-            System.Console.WriteLine($"No results found for search phrase.");
+            System.Console.WriteLine($"🚫 No results found for search phrase.");
         }
         else
         {
@@ -32,7 +41,7 @@ public class FileSearchService
 
             if (response.IsSuccessStatusCode)
             {
-                System.Console.WriteLine("Successfully uploaded search results to the API!");
+                System.Console.WriteLine("✅ Successfully uploaded search results to the API!");
             }
             else
             {
@@ -41,7 +50,8 @@ public class FileSearchService
             }
 
             // Does the user need this information?
-            System.Console.WriteLine($"Skipped {skippedFoldersCount} folders.");
+            System.Console.WriteLine($"💡 Skipped {skippedFoldersCount} folders.");
+            System.Console.WriteLine();
         }
     }
 
@@ -52,7 +62,7 @@ public class FileSearchService
 
         if (results is null)
         {
-            System.Console.WriteLine("No results returned from API.");
+            System.Console.WriteLine("🚫 No results returned from API.");
             return;
         }
 
@@ -65,7 +75,7 @@ public class FileSearchService
     // GET by Id: Move Writeline and ReadLine to the Program.cs file 
     public async Task GetById(HttpClient client)
     {
-        System.Console.WriteLine("Enter the Id of the result you want to view: ");
+        System.Console.WriteLine("📌 Enter the Id of the result you want to view: ");
         string? id = System.Console.ReadLine();
         var result = await client.GetFromJsonAsync<SearchResult>($"/api/search/{id}");
         if (result != null)
@@ -75,42 +85,42 @@ public class FileSearchService
         }
         else
         {
-            System.Console.WriteLine($"No result found with ID: {id}");
+            System.Console.WriteLine($"🚫 No result found with ID: {id}");
         }
     }
 
     // DELETE: Move Writeline and ReadLine to the Program.cs file
     public async Task DeleteById(HttpClient client)
     {
-        System.Console.WriteLine("Enter the Id of the result you want to delete: ");
+        System.Console.WriteLine("📌 Enter the Id of the result you want to delete: ");
         string? id = System.Console.ReadLine();
         var response = await client.DeleteAsync($"/api/search/{id}");
         if (response.IsSuccessStatusCode)
         {
-            System.Console.WriteLine("Result deleted successfully.");
+            System.Console.WriteLine("✅ Result deleted successfully.");
         }
         else
         {
-            System.Console.WriteLine($"Failed to delete result with ID: {id}");
+            System.Console.WriteLine($"🚫 Failed to delete result with ID: {id}");
         }
     }
 
     // UPDATE: Move Writeline and ReadLine to the Program.cs file
     public async Task UpdateById(HttpClient client)
     {
-        System.Console.WriteLine("Enter the Id of the result you want to edit: ");
+        System.Console.WriteLine("📌 Enter the Id of the result you want to edit: ");
         string? id = System.Console.ReadLine();
-        System.Console.WriteLine("Enter the new priority value (High/Low): ");
+        System.Console.WriteLine("📌 Enter the new priority value (High/Low): ");
         string? priority = System.Console.ReadLine();
         if (string.IsNullOrWhiteSpace(id))
         {
-            System.Console.WriteLine("Invalid Id.");
+            System.Console.WriteLine("🚫 Invalid Id.");
             return;
         }
 
         if (!Guid.TryParse(id, out var guid))
         {
-            System.Console.WriteLine("Invalid GUID format.");
+            System.Console.WriteLine("🚫 Invalid GUID format.");
             return;
         }
 
@@ -122,17 +132,6 @@ public class FileSearchService
     {
 
         string rootFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-        // Add or remove your preferred plain-text file type extensions here:
-        string[] allowedExtensions = new[] {
-            "md", "mdx",
-            "txt", "csv",
-            "css",
-            "html",
-            "cs",
-            "py",
-            "js", "ts", "jsx", "tsx",
-            "json"
-        };
 
         // Validate the user-provided folder path, if any, and set it as the root folder
         if (userFolder != "")
@@ -143,8 +142,8 @@ public class FileSearchService
             }
             else
             {
-                System.Console.WriteLine("Folder not found.");
-                // return; // this was giving me an error?!?
+                System.Console.WriteLine("🚫 Folder not found.");
+                return new List<SearchResult>(); // Exits the method immediately and returns an empty list!
             }
         }
 
@@ -152,13 +151,14 @@ public class FileSearchService
         {
             fileType = "md";
         }
-        else if (!allowedExtensions.Contains(fileType))
+        else if (!_allowedExtensions.Contains(fileType.ToLower()))
         {
-            System.Console.WriteLine($"Invalid file type, {fileType} not supported.");
+            System.Console.WriteLine($"🚫 Invalid file type, {fileType} not supported.");
+            return new List<SearchResult>(); // Stop search immediately for bad file types
         }
 
         System.Console.WriteLine();
-        System.Console.WriteLine($"{rootFolder} will be searched for '{searchPhrase}'");
+        System.Console.WriteLine($"✅ {rootFolder} will be searched for '{searchPhrase}'");
         System.Console.WriteLine();
 
         // Initialize a counter for skipped folders
