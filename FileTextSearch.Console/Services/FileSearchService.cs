@@ -58,7 +58,7 @@ public class FileSearchService
 
         foreach (var result in results)
         {
-            System.Console.WriteLine($"{result.FileName}, {result.FullPath}, {result.Priority}");
+            System.Console.WriteLine($"{result.FileName}, {result.FullPath}, {result.Priority}, {result.Category}");
         }
     }
 
@@ -170,12 +170,15 @@ public class FileSearchService
                         {
                             var info = new FileInfo(file);
                             var result = new SearchResult();
+                            var relativePath = file
+                                .Replace(rootFolder, "")
+                                .Trim('\\');
                             // Add each md file to the results List
                             results.Add(new SearchResult
                             {
                                 FileName = Path.GetFileName(file),
                                 FullPath = file,
-                                Category = "General",
+                                Category = Path.GetDirectoryName(relativePath) ?? "General",
                                 FileSize = info.Length,
                                 Priority = "Normal"
                             });

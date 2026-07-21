@@ -18,7 +18,7 @@ public class SearchService
     // POST: api/search
     public void Add(List<SearchResult> newResults)
     {
-        // SearchResults.Clear();
+        SearchResults.Clear();
         SearchResults.AddRange(newResults);
     }
 
