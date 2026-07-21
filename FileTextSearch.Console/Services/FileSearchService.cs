@@ -142,7 +142,7 @@ public class FileSearchService
             }
             else
             {
-                System.Console.WriteLine("🚫 Folder not found.");
+                System.Console.WriteLine($"🚫 Folder '/{userFolder}' not found.");
                 return new List<SearchResult>(); // Exits the method immediately and returns an empty list!
             }
         }
