@@ -4,14 +4,31 @@ This project will enable the user to search a word or phrase and return the full
 
 The point of the project is to consolidate notes in various files, into a master file or folder. But you have to track down your notes by subject first. For example, I have multiple files and notes involving CSS resets. These notes and files are spread across many folders and I can't always remember where they are.
 
-Here is the structure this project will have when complete:
+<!-- Here is the structure this project will have when complete:
 
 1. FileTextSearch.Api/ (✅ Done)
 2. FileTextSearch.Console/ (✅ Done)
    - Menu done ✅
    - Full CRUD done ✅
 3. FileTextSearch.Tests/ using xUnit (✅ Done)
-4. FileTextSearch.Web/ using React (📌 Next)
+4. FileTextSearch.Web/ using React (📌 Next) -->
+
+## Table of Contents
+
+1. [Prerequisites](#prerequisites)
+1. [API Project](#api-project)
+1. [Console Project](#console-project)
+1. [Testing Project](#testing-project)
+1. [React Project](#react-project)
+1. [Project Structure](#project-structure)
+1. [Tech Stack](#tech-stack)
+1. [Capstone Requirements](#capstone-requirements)
+1. [Capstone Questions](#capstone-questions)
+1. [AI Usage](#ai-usage)
+1. [Acknowledgments & Resources](#acknowledgments--resources)
+1. [Future Improvements](#future-improvements)
+1. [Contributing](#contributing)
+1. [License](#license)
 
 <span aria-hidden="true"><br></span>
 
@@ -69,41 +86,9 @@ dotnet run --project FileTextSearch.Api # or
 dotnet run -p FileTextSearch.Api
 ```
 
-<!--
-cd FileTextSearch.Api
-dotnet add package Scalar.AspNetCore
- -->
-
 Then go to `http://localhost:5042/scalar` to interact with the API. The API is at `http://localhost:5042/api/search`.
 
-### Program.cs methods:
-
-- `using Scalar.AspNetCore`:
-- `app.MapScalarApiReference()`:
-- `builder.Services.AddSingleton()`:
-
-### Controllers methods:
-
-- HttpGet -> GetAll -> ActionResult SearchService.GetAll -> return Ok()
-- HttpGet -> GetById -> ActionResult SearchService.Get -> return Ok()
-- HttpPost -> Create -> ActionResult SearchService.Add -> return Ok()
-- HttpPut -> Update -> IActionResult SearchService.Get -> return NoContent()
-- HttpDelete -> Delete -> IActionResult SearchService.Get -> return NoContent()
-
-IActionResult:
-
-- `IActionResult` lets the client know if the request succeeded and provides the ID of the newly created pizza
-- `IActionResult` uses standard HTTP status codes, so it can easily integrate with clients regardless of the language or platform they're running on
-- `IActionResult` use case: Complex logic with highly dynamic responses.
-  - It gives you total freedom to return any status code helper method (`Ok`, `NotFound`, `BadRequest`).
-  - However, to document the API for tools like Swagger, you have to manually decorate the method with attributes
-
-### Services methods:
-
-- `List<SearchResult> SearchResults`
-- Delete
-  - Get - shouldn't this use `FirstOrDefault` like `Update`, or should `Update` use `Get`?
-  - SearchResults.Remove
+The API data is in memory at this point, not in a database or JSON file.
 
 <span aria-hidden="true"><br></span>
 
@@ -128,22 +113,7 @@ dotnet run -p FileTextSearch.Console
 6. Exit
 ```
 
-### Methods & notes:
-
-The property `Category` is meant to be the folder path AFTER `Documents` and without the filename and exension. Right now it is set to "General", but I would like the folder path so that when/if I get to React, I can create sections based on that value.
-
-- `StringComparison.OrdinalIgnoreCase`: case-insensitive string comparison used with the user search phrase to find marrkdown files with that phrase
-- `UnauthorizedAccessException`: occurs when enumerating the files in a directory which I ran into when searching the Documents folder
-- `HashSet<string>` used to define folders that may include markdown files like `node_modules` and to skip those folders.
-- `IsSuccessStatusCode`: property on `HttpResponseMessage`, holds a boolean for if the request was successful (200 OK) or not. See [WebApiLab](https://github.com/Kernix13/WebApiLab)
-  - I used that as opposed to `response.StatusCode`
-- `PostAsJsonAsync`: serializes a given object into a JSON payload and transmits it as the body of an HTTP POST request
-  - vs `PostAsync`: you are responsible for serializing the object, creating the HTTP content, & setting the content type
-  - `PostAsJsonAsync` does all of that for you
-- `PutAsJsonAsync`: serializes a C# object to JSON and sends an HTTP PUT request
-  - `PutAsync`: Exactly the same idea as above
-- `GetFromJsonAsync`: I think I will be using this for both GET requests
-  - Get abd Get By Id both use `GetAsync` in other projects
+I still need to add error handling for edge cases and bad input/
 
 <span aria-hidden="true"><br></span>
 
@@ -158,9 +128,9 @@ dotnet test
 
 <span aria-hidden="true"><br></span>
 
-## React Project (not included yet)
+## React Project
 
-Run the React UI app
+Run the React UI app (not added to project yet)
 
 ```bash
 cd FileTextSearch.Web
@@ -171,7 +141,7 @@ npm run dev
 
 <span aria-hidden="true"><br></span>
 
-## Project structure
+## Project Structure
 
 Remember to add a `.github` folder with templates for issues and pull requests.
 
@@ -231,11 +201,37 @@ If I add React, add this to above
 
 ## Tech Stack
 
-1. .NET SDK 10.0
-2. C# Dex Kit VS Code extension
-3. xUnit testing library
-4. Node.js (not added yet)
-5. React (not added yet)
+1. [.NET SDK 10.0](https://dotnet.microsoft.com/en-us/download/dotnet/10.0)
+2. [C# Dev Kit VS Code extension](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit)
+3. [xUnit testing framework](https://xunit.net/?tabs=cs)
+4. [Node.js](https://nodejs.org/en) (not added yet)
+5. [React](https://react.dev/) (not added yet)
+
+<span aria-hidden="true"><br></span>
+
+## Capstone Requirements
+
+> Due by Noon on August 14th, 2026
+
+Project must contain three different projects:
+
+1. ✅ A C# web API using controllers or minimal API -> [FileTextSearch.Api](https://github.com/Kernix13/file-text-search/tree/main/FileTextSearch.Api)
+2. ✅ A project that consumes that API, console application or a web site -> [FileTextSearch.Console](https://github.com/Kernix13/file-text-search/tree/main/FileTextSearch.Console)
+3. ✅ A test project to prove that your code works -> [FileTextSearch.Tests](https://github.com/Kernix13/file-text-search/tree/main/FileTextSearch.Tests)
+
+Basic requirements:
+
+- ✅ Submitted as a single GitHub repository
+- ✅ The solution builds successfully
+- ✅ Uses ASP.NET and C# to expose a web API
+- ✅ A CRUD project that uses those web APIs for data stored in-memory
+- ✅ Automated tests written, pass, and cover a significant portion of execution paths
+- Your project is documented in a README.md file that contains
+  - ✅ App's name and intended purpose
+  - ✅ How to build and run your application
+  - ✅ What you learned from this project/course
+  - ✅ What would you have done differently
+  - ✅ What additional features would you have added
 
 <span aria-hidden="true"><br></span>
 
@@ -248,7 +244,7 @@ If I add React, add this to above
 3. What did I learn from the Code:You C# Software Development pathway?
    - I found C# difficult but understanding the importance of data types was important to learn. I hope to convert my JavaScript projectsto TypeScript in the near future.
 4. What would I have done differently for this project?
-   - I wish that Icouldhave used a database and create aJSON file rather than use in memory for the data.
+   - I wish that I couldh ave used a database and create aJSON file rather than use in memory for the data.
 
 <span aria-hidden="true"><br></span>
 
@@ -268,13 +264,12 @@ If I add React, add this to above
 
 ## Future Improvements
 
-> Later...
-
 1. I already allow the user to select a specific folder to search, but you have to type out the full folder path. It would be better to somehow allow the user to "browse" their system folders.
    - ✅ I have added this but you need the full path like `C:/Users/pc/Documents/WebDev/CodeYou`. That is cumbersome
 2. Change user prompt and allow multiple search phrases separated by a comman, then `Split` on the comma and `Trim` whitespace
 3. Search other file types: _.json_ and _.csv_ will be easy, _.docx_ and _.xls_ will require a Nuget package
 4. I want to also be able to search for filename + extension like `reset.css`
+5. ...
 
 <span aria-hidden="true"><br></span>
 
@@ -282,7 +277,7 @@ If I add React, add this to above
 
 Contributions are welcome! If you'd like to help improve this project, please read our _contribution guidelines_ on how to get started, our workflow, and code style expectations.
 
-> Add a link for "contribution guidelines" as soon as I add that file.
+> Add a link for "contribution guidelines" as soon as I add that file. Also add a code of conduct file.
 
 <span aria-hidden="true"><br></span>
 
@@ -291,46 +286,3 @@ Contributions are welcome! If you'd like to help improve this project, please re
 This project is licensed under the MIT License.
 
 > Add a link for "MIT License" as soon as I add it.
-
-<span aria-hidden="true"><br></span>
-
-## 🚫 My temporary notes (remove later)
-
-- Use `WebLabApi`, the Get and Get by id code in Console/Program.cs, and the Controller and Service code in .Api
-- Use `ContosoPizza` project as an example of an API with controllers ✅
-- Use `csharp-async-httpclient-example` project for using JsonSerializer.Deserialize and HttpClient in FileTextSearch.Console Program.cs file
-- Use the last meet recording to connect the API to the console app
-  - https://drive.google.com/file/d/1CLTLijgt45c5LN3LbBDp-ewox-6ultjM/view
-  <!-- - Use `csharp-JsonSerializer-example` to create a json file, JsonSerializer.Serialize + File.WriteAllText, File.ReadAllText + JsonSerializer.Deserialize
-  - Where would this go?
-  - This uses a users.json file I created - how do I generate a json file? -->
-
-### Code notes
-
-Setting every markdown file to upper or lower case is extreme for a string comparison - use this to compare strings:
-
-- `StringComparison.OrdinalIgnoreCase`: ignores the case of both strings during the comparison
-  - Highly efficient, non-linguistic, case-insensitive comparison
-  - It doesn't create new strings where `.ToLower` & `.ToUpper` does
-  - `string.Equals`: this would not work because each markdown file is much larger than a search string so it would never return `true`
-  - Docs: [StringComparison Enum](https://learn.microsoft.com/en-us/dotnet/api/system.stringcomparison?view=net-10.0)
-- Look into `AddRange()` - C# lists have a built-in method called AddRange() which inserts the entire list into your collection
-  - .Add(item) — Takes one single item and puts it at the end of the list
-  - .AddRange(collection) — Takes a list/collection of items and adds all of them into the list
-- The `ActionResult` type is the base class for all action results in ASP.NET Core.
-  - It automatically returns data with a `Content-Type` value of `application/json`
-  - what about IActionResult instead?
-  <!-- - Look into `AppContext.BaseDirectory()`
-  - built-in C# tool that finds the path to the folder where your program is compiled and running (usually deep inside a hidden folder called bin/Debug/net10.0) -->
-
-HttpClient
-
-- GetAsync vs PostAsJsonAsync
-- IsSuccessStatusCode vs EnsureSuccessStatusCode() - Lawrence used just StatusCode in a conditional but IsSuccessStatusCode is used in WebApiLAb - Lawrence also used EnsureSuccessStatusCode
-- response.Content.ReadFromJsonAsync vs response.Content.ReadAsStringAsync
-
-Look at `WebApiLab` for more API code that connects to the console project, and `ClassLibraryProjects` for an example of unit testing
-
-<!--
-http://localhost:5042/api/search
- -->
