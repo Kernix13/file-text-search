@@ -60,7 +60,7 @@ The point of the project is to consolidate notes in various files, into a master
    dotnet run --project FileTextSearch.Console
    ```
 
-4. Run xUnit tests:
+4. Run xUnit tests from project root:
 
    ```sh
    dotnet test
@@ -86,9 +86,7 @@ dotnet run --project FileTextSearch.Api # or
 dotnet run -p FileTextSearch.Api
 ```
 
-Then go to `http://localhost:5042/scalar` to interact with the API. The API is at `http://localhost:5042/api/search`.
-
-The API data is in memory at this point, not in a database or JSON file.
+Then go to `http://localhost:5042/scalar` to interact with the in-memory API. The API is at `http://localhost:5042/api/search`.
 
 <span aria-hidden="true"><br></span>
 
@@ -113,18 +111,22 @@ dotnet run -p FileTextSearch.Console
 6. Exit
 ```
 
-I still need to add error handling for edge cases and bad input/
+I still need to add error handling for edge cases and bad input.
 
 <span aria-hidden="true"><br></span>
 
 ## Testing Project
 
-Run the xUnit tests but they need to be run individually or they fail. I am working on fixing my code so that does not happen.
-
 ```bash
 # Run the tests from root
 dotnet test
 ```
+
+I have 3 tests
+
+1. POST: adding a search result
+2. GET: Get all results
+3. DELETE: Delete a result given its Id
 
 <span aria-hidden="true"><br></span>
 
@@ -139,30 +141,13 @@ npm run dev
 # open http://localhost:5195
 ```
 
+I intend to use a form in place of teh Console menu and then display the search results in the UI.
+
 <span aria-hidden="true"><br></span>
 
 ## Project Structure
 
 Remember to add a `.github` folder with templates for issues and pull requests.
-
-<!-- ```python
-file-text-search/
-├── FileTextSearch.Api/
-│   ├── Controllers/
-│   ├── Models/
-│   ├── Services/
-│   └── Program.cs
-├── FileTextSearch.Console/
-│   ├── Models/
-│   ├── Services/
-│   └── Program.cs
-├── FileTextSearch.Tests/
-├── .gitignore
-├── FileTextSearch.slnx
-└── README.md
-```
-
-Or maybe this: -->
 
 ```python
 file-text-search/
