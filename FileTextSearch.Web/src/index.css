@@ -14,7 +14,7 @@ html {
 }
 
 body {
-  margin: 0;
+  margin: 0 auto;
   line-height: 1.5;
   font-size: 1.125rem;
   font-weight: 400;
@@ -85,4 +85,31 @@ button {
 :focus-visible {
   outline: 2px dashed #000;
   /* Customize to suit your design */
+}
+
+/* custom classes */
+main {
+  padding: 2rem;
+  margin: 0 auto;
+}
+
+.error {
+  color: #ff0000;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  gap: 2rem;
+  
+}
+
+.result-card {
+  border: 1px solid #60676f;
+  padding: 2rem;
+}
+
+.result-link {
+  color: rgb(173, 173, 255);
+  text-decoration: underline;
 }
