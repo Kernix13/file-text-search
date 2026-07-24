@@ -273,12 +273,26 @@ Basic requirements:
 
 ## Future Improvements
 
-1. I already allow the user to select a specific folder to search, but you have to type out the full folder path. It would be better to somehow allow the user to "browse" their system folders.
+1. Fix the code that uses `AllowAny...` in the API project involving CORS (see codeblock below)
+2. I already allow the user to select a specific folder to search, but you have to type out the full folder path. It would be better to somehow allow the user to "browse" their system folders.
    - ✅ I have added this but you need the full path like `C:/Users/pc/Documents/WebDev/CodeYou`. That is cumbersome
-2. Change user prompt and allow multiple search phrases separated by a comman, then `Split` on the comma and `Trim` whitespace
-3. Search other file types: _.json_ and _.csv_ will be easy, _.docx_ and _.xls_ will require a Nuget package
-4. I want to also be able to search for filename + extension like `reset.css`
-5. ...
+3. Change user prompt and allow multiple search phrases separated by a comman, then `Split` on the comma and `Trim` whitespace
+4. Search other file types: _.json_ and _.csv_ will be easy, _.docx_ and _.xls_ will require a Nuget package
+5. I want to also be able to search for filename + extension like `reset.css`
+6. ...
+
+```cs
+// I need to edit this code in Program.cs for the API project:
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+```
 
 <span aria-hidden="true"><br></span>
 
