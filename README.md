@@ -189,8 +189,8 @@ file-text-search/
 1. [.NET SDK 10.0](https://dotnet.microsoft.com/en-us/download/dotnet/10.0)
 2. [C# Dev Kit VS Code extension](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit)
 3. [xUnit testing framework](https://xunit.net/?tabs=cs)
-4. [Node.js](https://nodejs.org/en) (not added yet)
-5. [React](https://react.dev/) (not added yet)
+4. [Node.js](https://nodejs.org/en)
+5. [React](https://react.dev/)
 
 <span aria-hidden="true"><br></span>
 
@@ -201,7 +201,7 @@ file-text-search/
 Project must contain three different projects:
 
 1. ✅ A C# web API using controllers or minimal API -> [FileTextSearch.Api](https://github.com/Kernix13/file-text-search/tree/main/FileTextSearch.Api)
-2. ✅ A project that consumes that API, console application or a web site -> [FileTextSearch.Console](https://github.com/Kernix13/file-text-search/tree/main/FileTextSearch.Console)
+2. ✅ A project that consumes that API, console application or a web site -> [FileTextSearch.Console](https://github.com/Kernix13/file-text-search/tree/main/FileTextSearch.Console) and [FileTextSearch.Web](https://github.com/Kernix13/file-text-search/tree/main/FileTextSearch.Web)
 3. ✅ A test project to prove that your code works -> [FileTextSearch.Tests](https://github.com/Kernix13/file-text-search/tree/main/FileTextSearch.Tests)
 
 Basic requirements:
