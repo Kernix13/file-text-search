@@ -99,7 +99,7 @@ dotnet run --project FileTextSearch.Console # or
 dotnet run -p FileTextSearch.Console
 ```
 
-### Console menu
+### Console menu and output
 
 ```
 1. Search Files
@@ -108,6 +108,30 @@ dotnet run -p FileTextSearch.Console
 4. Update Search Result
 5. Delete Search Result
 6. Exit
+```
+
+Once the React UI is handling the API, the Console project will write something similar to this:
+
+```
+========== File Text Search ==========
+
+Search complete!
+
+Search phrase: "css reset"
+
+Files scanned: 482
+Matching files: 17
+Folders searched: 26
+Elapsed time: 0.43 seconds
+
+Matches by folder
+-----------------
+CodeYou/module-2     8
+CSS/css-essentials   5
+markdown-repos       1
+Traversy/React       3
+
+Results successfully posted to the API.
 ```
 
 I still need to add error handling for edge cases and bad input.
