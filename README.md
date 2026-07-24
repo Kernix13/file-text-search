@@ -4,15 +4,6 @@ This project will enable the user to search a word or phrase and return the full
 
 The point of the project is to consolidate notes in various files, into a master file or folder. But you have to track down your notes by subject first. For example, I have multiple files and notes involving CSS resets. These notes and files are spread across many folders and I can't always remember where they are.
 
-<!-- Here is the structure this project will have when complete:
-
-1. FileTextSearch.Api/ (✅ Done)
-2. FileTextSearch.Console/ (✅ Done)
-   - Menu done ✅
-   - Full CRUD done ✅
-3. FileTextSearch.Tests/ using xUnit (✅ Done)
-4. FileTextSearch.Web/ using React (📌 Next) -->
-
 ## Table of Contents
 
 1. [Prerequisites](#prerequisites)
@@ -88,6 +79,14 @@ dotnet run -p FileTextSearch.Api
 
 Then go to `http://localhost:5042/scalar` to interact with the in-memory API. The API is at `http://localhost:5042/api/search`.
 
+### Files
+
+- Controllers/SearchController.cs
+- Models/Searchresult.cs
+- Services/SearchService.cs
+- FileTextSearch.Api.http
+- Program.cs
+
 <span aria-hidden="true"><br></span>
 
 ## Console Project
@@ -113,6 +112,12 @@ dotnet run -p FileTextSearch.Console
 
 I still need to add error handling for edge cases and bad input.
 
+### Files
+
+- Models/SearchResult.cs (same as Api Models file)
+- Services/FileSearchService.cs
+- Program.cs
+
 <span aria-hidden="true"><br></span>
 
 ## Testing Project
@@ -122,7 +127,7 @@ I still need to add error handling for edge cases and bad input.
 dotnet test
 ```
 
-I have 3 tests
+I have 3 tests in `SearchServiceTests.cs`:
 
 1. POST: adding a search result
 2. GET: Get all results
@@ -138,10 +143,10 @@ Run the React UI app (not added to project yet)
 cd FileTextSearch.Web
 npm install
 npm run dev
-# open http://localhost:5195
+# open http://localhost:5195 (or is it 5173?) I used npx not npm
 ```
 
-I intend to use a form in place of teh Console menu and then display the search results in the UI.
+I intend to use a form in place of the Console menu and then display the search results in the UI.
 
 <span aria-hidden="true"><br></span>
 
