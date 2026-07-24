@@ -143,7 +143,7 @@ Run the React UI app (not added to project yet)
 cd FileTextSearch.Web
 npm install
 npm run dev
-# open http://localhost:5195 (or is it 5173?) I used npx not npm
+# open http://localhost:5173/
 ```
 
 I intend to use a form in place of the Console menu and then display the search results in the UI.
@@ -172,19 +172,14 @@ file-text-search/
 │   └── Program.cs
 ├── FileTextSearch.Tests/
 │   └── SearchServiceTests.cs
-├── .gitignore
-├── FileTextSearch.slnx
-└── README.md
-```
-
-If I add React, add this to above
-
-```python
 ├── FileTextSearch.Web/
 │   ├── src/
 │   ├── public/
 │   ├── package.json
 │   └── vite.config.js
+├── .gitignore
+├── FileTextSearch.slnx
+└── README.md
 ```
 
 <span aria-hidden="true"><br></span>

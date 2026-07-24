@@ -1,0 +1,115 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --text: #fefeff;
+  --bg: #272730;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0 auto;
+  line-height: 1.5;
+  font-size: 1.125rem;
+  font-weight: 400;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  color: var(--text);
+  background-color: var(--bg);
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+optgroup,
+textarea,
+select {
+  font-size: inherit;
+  font-family: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+button,
+input,
+label {
+  line-height: 1.1
+}
+
+p {
+  text-wrap: pretty;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+  font-family: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
+  font-weight: 700
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* END RESETS & VARIABLES */
+/* Ensure consistent focus styles for accessibility */
+:focus-visible {
+  outline: 2px dashed #000;
+  /* Customize to suit your design */
+}
+
+/* custom classes */
+main {
+  padding: 2rem;
+  margin: 0 auto;
+}
+
+.error {
+  color: #ff0000;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  gap: 2rem;
+  
+}
+
+.result-card {
+  border: 1px solid #60676f;
+  padding: 2rem;
+}
+
+.result-link {
+  color: rgb(173, 173, 255);
+  text-decoration: underline;
+}
