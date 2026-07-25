@@ -199,8 +199,8 @@ file-text-search/
 ├── FileTextSearch.Tests/
 │   └── SearchServiceTests.cs
 ├── FileTextSearch.Web/
-│   ├── src/
 │   ├── public/
+│   ├── src/
 │   ├── package.json
 │   └── vite.config.js
 ├── .gitignore

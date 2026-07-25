@@ -5,15 +5,22 @@ const API_URL = 'http://localhost:5042/api/search';
 
 const App = () => {
   const [searchPhrase, setSearchPhrase] = useState("");
+  const [fileType, setFileType] = useState("");
+  const [folder, setFolder] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const handleSearch = (e) => {
     e.preventDefault();
-    console.log(searchPhrase);
-    // call the API
+    console.log(searchPhrase, fileType, folder);
+    // call the API using searchPhrase
+
+    // I need to clear the search form when done
   }
+
+  const onTypeChange = (value) => setFileType(value);
+  // console.log(fileType);
 
   useEffect(() => {
     const fetchResults = async () => {
@@ -35,16 +42,42 @@ const App = () => {
   return ( 
     <div>
       <h1>System File Search</h1>
+      {/* I need this to show the search phrase AFTER the form has been submitted */}
+      <h2>Search results for: '{searchPhrase}'</h2>
       <form onSubmit={handleSearch}>
-        <label htmlFor="filesearch">Search your files:</label>
 
-        <input
-          type="search"
-          id="filesearch"
-          value={searchPhrase}
-          onChange={e => setSearchPhrase(e.target.value)}
-          placeholder="Enter search phrase"
-        />
+        <div className="form-control">
+          <label htmlFor="filesearch">Search your files:</label>
+          <input
+            type="search"
+            id="filesearch"
+            value={searchPhrase}
+            onChange={e => setSearchPhrase(e.target.value)}
+            placeholder="Enter search phrase"
+          />
+        </div>
+
+        <div className="form-control">
+          <label htmlFor="type">Show: </label>
+          <select value={fileType} id="type" onChange={(e) => onTypeChange(e.target.value)}>
+            <option value="md">md</option>
+            <option value="txt">txt</option>
+            <option value="css">css</option>
+            <option value="html">html</option>
+            <option value="js">js</option>
+          </select>
+        </div>
+
+        <div className="form-control">
+          <label htmlFor="folder">Enter folder to search:</label>
+          <input
+            type="text"
+            id="folder"
+            value={folder}
+            onChange={e => setFolder(e.target.value)}
+            placeholder="Leave blank to search Documents"
+          />
+        </div>
 
         <button type="submit">Search</button>
       </form>
