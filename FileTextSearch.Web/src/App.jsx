@@ -4,10 +4,16 @@ import SearchForm from "./components/SearchForm";
 const API_URL = 'http://localhost:5042/api/search';
 
 const App = () => {
-  // const [searchPhrase, setSearchPhrase] = useState("");
+  const [searchPhrase, setSearchPhrase] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    console.log(searchPhrase);
+    // call the API
+  }
 
   useEffect(() => {
     const fetchResults = async () => {
@@ -28,7 +34,21 @@ const App = () => {
 
   return ( 
     <div>
-      <h1>System File Search Using C#</h1>
+      <h1>System File Search</h1>
+      <form onSubmit={handleSearch}>
+        <label htmlFor="filesearch">Search your files:</label>
+
+        <input
+          type="search"
+          id="filesearch"
+          value={searchPhrase}
+          onChange={e => setSearchPhrase(e.target.value)}
+          placeholder="Enter search phrase"
+        />
+
+        <button type="submit">Search</button>
+      </form>
+
       {/* { loading ? <p>Loading...</p> : null } */}
       { loading && <p>Loading...</p> }
 
@@ -45,7 +65,12 @@ const App = () => {
                 <ul>
                   <li>{result.category}</li>
                   {/* <li>{result.fileName}</li> */}
-                  <li><a className="result-link" target="_blank" href="https://www.google.com/">{result.fileName}</a></li>
+                  <li><a 
+                    className="result-link" 
+                    target="_blank" 
+                    href={`file:///${result.fullPath.replace(/\\/g, "/")}`}
+                  >{result.fileName}</a></li>
+                  <li>File path: {`file:///${result.fullPath.replace(/\\/g, "/")}`}</li>
                   <li>{result.priority}
                     <button>Edit</button>
                   </li>

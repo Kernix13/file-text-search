@@ -167,7 +167,9 @@ Run the React UI app (not added to project yet)
 cd FileTextSearch.Web
 npm install
 npm run dev
-# open http://localhost:5173/
+# Or run from the root:
+npm --prefix FileTextSearch.Web run dev
+# Then open http://localhost:5173/
 ```
 
 I intend to use a form in place of the Console menu and then display the search results in the UI.
@@ -261,6 +263,7 @@ Basic requirements:
 
 1. I originally wanted to create a JSON file for my search results (POST) whichI did, but I was not able to to get GET working so I asked ChatGPT what the problem was. It showed me code to fix it, but since it was not what was covered in any of the lessons, I abandoned that approach and changed to "in memory" for the API.
 2. My tests were failing in random order so I asked GPT why after showing the errors. It was because of my `static` class and methods in `SearchService.cs`. I removed the `static` and made changes in SearchController.cs, Program.cs, and SearchServiceTests.cs
+3. I asked ChatGPT how to run the React project from the root and it told me about the `--prefix` option: `npm --prefix FileTextSearch.Web run dev`. That makes things a little easier.
 
 <span aria-hidden="true"><br></span>
 

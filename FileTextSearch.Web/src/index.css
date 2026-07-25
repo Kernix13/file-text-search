@@ -14,7 +14,7 @@ html {
 }
 
 body {
-  margin: 0 auto;
+  margin: 2rem;
   line-height: 1.5;
   font-size: 1.125rem;
   font-weight: 400;
@@ -99,14 +99,14 @@ main {
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(37rem, 1fr));
   gap: 2rem;
-  
 }
 
 .result-card {
   border: 1px solid #60676f;
   padding: 2rem;
+  overflow: clip;
 }
 
 .result-link {
