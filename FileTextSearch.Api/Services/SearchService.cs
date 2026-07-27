@@ -25,7 +25,7 @@ public class SearchService
     // PUT: api/search/{id}
     public void Update(SearchResult searchResult)
     {
-        var result = SearchResults.FirstOrDefault(x => x.Id == searchResult.Id);
+        var result = Get(searchResult.Id);
         if (result is null)
             return;
 

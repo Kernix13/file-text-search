@@ -53,8 +53,8 @@ public class SearchController : ControllerBase
             return BadRequest("ID in URL path does not match ID in request body.");
         }
 
-        var itemToDelete = _searchService.Get(id);
-        if (itemToDelete == null)
+        var itemToUpdate = _searchService.Get(id);
+        if (itemToUpdate == null)
         {
             return NotFound($"No result found with ID: {id}");
         }
