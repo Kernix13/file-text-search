@@ -19,6 +19,7 @@ const App = () => {
     // I need to clear the search form when done
   }
 
+  // This seems wrong!!!
   const onTypeChange = (value) => setFileType(value);
   // console.log(fileType);
 
