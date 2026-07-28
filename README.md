@@ -72,8 +72,9 @@ The point of the project is to consolidate notes in various files, into a master
 ### Run the API
 
 ```bash
-# From project root
-dotnet run --project FileTextSearch.Api # or
+# From project root:
+dotnet run --project FileTextSearch.Api
+# or replace --project with -p
 dotnet run -p FileTextSearch.Api
 ```
 
@@ -94,8 +95,8 @@ Then go to `http://localhost:5042/scalar` to interact with the in-memory API. Th
 Run the Console app
 
 ```bash
-# From project root
-dotnet run --project FileTextSearch.Console # or
+# From project root:
+dotnet run --project FileTextSearch.Console # or:
 dotnet run -p FileTextSearch.Console
 ```
 
@@ -140,6 +141,7 @@ I still need to add error handling for edge cases and bad input.
 
 - Models/SearchResult.cs (same as Api Models file)
 - Services/FileSearchService.cs
+  - Should my method names be more descriptive?
 - Program.cs
 
 <span aria-hidden="true"><br></span>
@@ -167,8 +169,10 @@ Run the React UI app (not added to project yet)
 cd FileTextSearch.Web
 npm install
 npm run dev
+
 # Or run from the root:
 npm --prefix FileTextSearch.Web run dev
+
 # Then open http://localhost:5173/
 ```
 

@@ -29,6 +29,7 @@ public class FileSearchService
     int skippedFoldersCount;
 
     // POST: Move WriteLine to the Program.cs file
+    // Rename to CreateSearchResults?
     public async Task Create(HttpClient client, List<SearchResult> results)
     {
         if (results.Count == 0)
@@ -56,6 +57,7 @@ public class FileSearchService
     }
 
     // GET: Move WriteLine to the Program.cs file
+    // Rename to GetAllSearchResults?
     public async Task GetAll(HttpClient client)
     {
         var results = await client.GetFromJsonAsync<List<SearchResult>>("/api/search");
@@ -73,6 +75,7 @@ public class FileSearchService
     }
 
     // GET by Id: Move Writeline and ReadLine to the Program.cs file 
+    // Rename to GetSearchResultById or GetResultById?
     public async Task GetById(HttpClient client)
     {
         System.Console.WriteLine("📌 Enter the Id of the result you want to view: ");
@@ -90,6 +93,7 @@ public class FileSearchService
     }
 
     // DELETE: Move Writeline and ReadLine to the Program.cs file
+    // Rename to DeleteResult?
     public async Task DeleteById(HttpClient client)
     {
         System.Console.WriteLine("📌 Enter the Id of the result you want to delete: ");
@@ -106,6 +110,7 @@ public class FileSearchService
     }
 
     // UPDATE: Move Writeline and ReadLine to the Program.cs file
+    // Rename to UpdateResult?
     public async Task UpdateById(HttpClient client)
     {
         System.Console.WriteLine("📌 Enter the Id of the result you want to edit: ");
@@ -127,7 +132,7 @@ public class FileSearchService
         var response = await client.PutAsJsonAsync<SearchResult>($"/api/search/{id}", new SearchResult { Id = guid, Priority = priority ?? "Normal" });
     }
 
-    // Helper method to search files based on the search phrase and user-provided folder
+    // Helper method to search files based on the search phrase, and user provider file type and folder
     public async Task<List<SearchResult>> SearchFiles(string searchPhrase, string userFolder, string fileType)
     {
 
