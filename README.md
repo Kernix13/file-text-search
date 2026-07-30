@@ -54,8 +54,7 @@ The point of the project is to consolidate notes in various files, into a master
 4. Run xUnit tests from project root:
 
    ```sh
-   cd FileTextSearch.Tests
-   dotnet test
+   dotnet test FileTextSearch.Tests
    ```
 
 5. View React front end UI (not added yet):
