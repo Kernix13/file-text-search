@@ -48,6 +48,7 @@ while (true)
 }
 
 // Helper method for running the search with user input
+// Should this be in FileSearchService?
 static async Task RunSearch(HttpClient client, FileSearchService searchService)
 {
     Console.Write("📌 Enter search phrase: ");

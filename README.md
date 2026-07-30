@@ -176,7 +176,7 @@ npm --prefix FileTextSearch.Web run dev
 # Then open http://localhost:5173/
 ```
 
-I intend to use a form in place of the Console menu and then display the search results in the UI.
+I intend to use a form in place of the Console menu and then display the search results in the UI. A temporary form is in place but it is not functional - I am unsure how to connect to the API from React. I am writing the search results to the UI but it needs CSS improvements.
 
 <span aria-hidden="true"><br></span>
 
@@ -274,7 +274,7 @@ Basic requirements:
 ## Acknowledgments & Resources
 
 1. [Dependency injection for .NET APIs](https://youtu.be/LpBdpoHD50I): This was helpful for how to inject my services into Program.cs for use there.
-2.
+2. [Full API Pattern with .NET 9](https://youtu.be/W_1eW_hBlmw): Various API features including depending injection and using Scalar.
 
 <span aria-hidden="true"><br></span>
 
