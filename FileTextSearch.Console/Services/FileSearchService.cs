@@ -6,6 +6,7 @@ namespace FileTextSearch.Console.Services;
 public class FileSearchService
 {
     // Add or remove your preferred plain-text file type extensions here:
+    // Currently not implemented
     private readonly string[] _allowedExtensions = new[] {
         "md", "mdx",
         "txt", "csv",
@@ -28,8 +29,7 @@ public class FileSearchService
 
     int skippedFoldersCount;
 
-    // POST: Move WriteLine to the Program.cs file
-    // Rename to CreateSearchResults?
+    // POST
     public async Task Create(HttpClient client, List<SearchResult> results)
     {
         if (results.Count == 0)
@@ -56,83 +56,32 @@ public class FileSearchService
         }
     }
 
-    // GET: Move WriteLine to the Program.cs file
-    // Rename to GetAllSearchResults?
-    public async Task GetAll(HttpClient client)
+    // GET
+    public async Task<List<SearchResult>?> GetAll(HttpClient client)
     {
-        var results = await client.GetFromJsonAsync<List<SearchResult>>("/api/search");
-
-        if (results is null)
-        {
-            System.Console.WriteLine("🚫 No results returned from API.");
-            return;
-        }
-
-        foreach (var result in results)
-        {
-            System.Console.WriteLine($"{result.FileName}, {result.FullPath}, {result.Priority}, {result.Category}");
-        }
+        return await client.GetFromJsonAsync<List<SearchResult>>("/api/search");
     }
 
-    // GET by Id: Move Writeline and ReadLine to the Program.cs file 
-    // Rename to GetSearchResultById or GetResultById?
-    public async Task GetById(HttpClient client)
+    // GET
+    public async Task<SearchResult?> GetById(HttpClient client, string id)
     {
-        System.Console.WriteLine("📌 Enter the Id of the result you want to view: ");
-        string? id = System.Console.ReadLine();
-        var result = await client.GetFromJsonAsync<SearchResult>($"/api/search/{id}");
-        if (result != null)
-        {
-            System.Console.WriteLine(result.FileName);
-            System.Console.WriteLine(result.FullPath);
-        }
-        else
-        {
-            System.Console.WriteLine($"🚫 No result found with ID: {id}");
-        }
+        return await client.GetFromJsonAsync<SearchResult>($"/api/search/{id}");
     }
 
-    // DELETE: Move Writeline and ReadLine to the Program.cs file
-    // Rename to DeleteResult?
-    public async Task DeleteById(HttpClient client)
-    {
-        System.Console.WriteLine("📌 Enter the Id of the result you want to delete: ");
-        string? id = System.Console.ReadLine();
-        var response = await client.DeleteAsync($"/api/search/{id}");
-        if (response.IsSuccessStatusCode)
-        {
-            System.Console.WriteLine("✅ Result deleted successfully.");
-        }
-        else
-        {
-            System.Console.WriteLine($"🚫 Failed to delete result with ID: {id}");
-        }
+    // DELETE
+    public async Task<HttpResponseMessage> DeleteById(HttpClient client, string id)
+    {   
+        return await client.DeleteAsync($"/api/search/{id}");
     }
 
-    // UPDATE: Move Writeline and ReadLine to the Program.cs file
-    // Rename to UpdateResult?
-    public async Task UpdateById(HttpClient client)
+    // PUT
+    public async Task UpdateById(HttpClient client, Guid id, string priority)
     {
-        System.Console.WriteLine("📌 Enter the Id of the result you want to edit: ");
-        string? id = System.Console.ReadLine();
-        System.Console.WriteLine("📌 Enter the new priority value (High/Low): ");
-        string? priority = System.Console.ReadLine();
-        if (string.IsNullOrWhiteSpace(id))
-        {
-            System.Console.WriteLine("🚫 Invalid Id.");
-            return;
-        }
-
-        if (!Guid.TryParse(id, out var guid))
-        {
-            System.Console.WriteLine("🚫 Invalid GUID format.");
-            return;
-        }
-
-        var response = await client.PutAsJsonAsync<SearchResult>($"/api/search/{id}", new SearchResult { Id = guid, Priority = priority ?? "Normal" });
+        await client.PutAsJsonAsync<SearchResult>($"/api/search/{id}", new SearchResult { Id = id, Priority = priority });
     }
 
-    // Helper method to search files based on the search phrase, and user provider file type and folder
+    /* Helper method to search files based on the search phrase, and user provider file type and folder.
+    How do I remove the WriteLine statements? */
     public async Task<List<SearchResult>> SearchFiles(string searchPhrase, string userFolder, string fileType)
     {
 
@@ -148,7 +97,7 @@ public class FileSearchService
             else
             {
                 System.Console.WriteLine($"🚫 Folder '/{userFolder}' not found.");
-                return new List<SearchResult>(); // Exits the method immediately and returns an empty list!
+                return new List<SearchResult>();
             }
         }
 
@@ -159,7 +108,7 @@ public class FileSearchService
         else if (!_allowedExtensions.Contains(fileType.ToLower()))
         {
             System.Console.WriteLine($"🚫 Invalid file type, {fileType} not supported.");
-            return new List<SearchResult>(); // Stop search immediately for bad file types
+            return new List<SearchResult>(); 
         }
 
         System.Console.WriteLine();
@@ -246,4 +195,3 @@ public class FileSearchService
         return results;
     }
 }
-

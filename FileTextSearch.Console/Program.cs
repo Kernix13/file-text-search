@@ -24,19 +24,19 @@ while (true)
             break;
         case "2":
             Console.WriteLine("");
-            await searchService.GetAll(client);
+            await RunGetAll(client, searchService);
             break;
         case "3":
             Console.WriteLine("");
-            await searchService.GetById(client);
+            await RunGetById(client, searchService);
             break;
         case "4":
             Console.WriteLine("");
-            await searchService.UpdateById(client);
+            await RunUpdateById(client, searchService);
             break;
         case "5":
             Console.WriteLine("");
-            await searchService.DeleteById(client);
+            await RunDeleteById(client, searchService);
             break;
         case "6":
             return;
@@ -47,8 +47,7 @@ while (true)
     }
 }
 
-// Helper method for running the search with user input
-// Should this be in FileSearchService?
+// 1. Helper method for running the search with user input
 static async Task RunSearch(HttpClient client, FileSearchService searchService)
 {
     Console.Write("📌 Enter search phrase: ");
@@ -66,6 +65,7 @@ static async Task RunSearch(HttpClient client, FileSearchService searchService)
     string userFolder = Console.ReadLine() ?? "";
 
     var results = await searchService.SearchFiles(searchPhrase, userFolder, fileType);
+    
     await searchService.Create(client, results);
 
     foreach (var result in results)
@@ -80,6 +80,81 @@ static async Task RunSearch(HttpClient client, FileSearchService searchService)
     }
 }
 
-// Should I create helper methods for the other options? I don't think I should have WriteLine or ReadLine statements in the service class.
+// 2. Helper method for GetAll
+static async Task RunGetAll(HttpClient client, FileSearchService searchService)
+{
+    var results = await searchService.GetAll(client);
+
+    if (results is null)
+    {
+        Console.WriteLine("🚫 No results returned from API.");
+        return;
+    }
+
+    foreach (var result in results)
+    {
+        Console.WriteLine($"{result.FileName}, {result.FullPath}, {result.Priority}, {result.Category}");
+    }
+}
+
+// 3. Helper method for GetById
+static async Task RunGetById(HttpClient client, FileSearchService searchService)
+{
+    Console.WriteLine("📌 Enter the Id of the result you want to view: ");
+    string? id = Console.ReadLine();
+    var result = await searchService.GetById(client, id);
+
+    if (result != null)
+    {
+        Console.WriteLine(result.FileName);
+        Console.WriteLine(result.FullPath);
+    }
+    else
+    {
+        Console.WriteLine($"🚫 No result found with ID: {id}");
+    }
+}
+
+// 4. Helper method for UpdateById
+static async Task RunUpdateById(HttpClient client, FileSearchService searchService)
+{
+    Console.WriteLine("📌 Enter the Id of the result you want to edit: ");
+    string? id = Console.ReadLine();
+    Console.WriteLine("📌 Enter the new priority value (High/Low): ");
+    string? priority = Console.ReadLine();
+    if (string.IsNullOrWhiteSpace(id))
+    {
+        Console.WriteLine("🚫 Invalid Id.");
+        return;
+    }
+
+    if (!Guid.TryParse(id, out var guid))
+    {
+        Console.WriteLine("🚫 Invalid GUID format.");
+        return;
+    }
+
+    await searchService.UpdateById(client, guid, priority ?? "Normal");
+}
 
 
+// 5. Helper method for DeleteById
+static async Task RunDeleteById(HttpClient client, FileSearchService searchService)
+{
+    Console.WriteLine("📌 Enter the Id of the result you want to delete: ");
+    string? id = Console.ReadLine();
+    if (string.IsNullOrWhiteSpace(id))
+    {
+        Console.WriteLine("🚫 Invalid Id.");
+        return;
+    }
+    var response = await searchService.DeleteById(client, id);
+    if (response.IsSuccessStatusCode)
+    {
+        Console.WriteLine("✅ Result deleted successfully.");
+    }
+    else
+    {
+        Console.WriteLine($"🚫 Failed to delete result with ID: {id}");
+    }
+}
