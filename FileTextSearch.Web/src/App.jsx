@@ -7,6 +7,7 @@ const App = () => {
   const [searchPhrase, setSearchPhrase] = useState("");
   const [fileType, setFileType] = useState("");
   const [folder, setFolder] = useState("");
+  
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -14,7 +15,7 @@ const App = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     console.log(searchPhrase, fileType, folder);
-    // call the API using searchPhrase
+    // call the API here
 
     // I need to clear the search form when done
   }
