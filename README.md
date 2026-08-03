@@ -1,8 +1,8 @@
 # File Text Search API using C#
 
-This project will enable the user to search a word or phrase and return the full path for any text file (.md, .txt, .html) that contains the search phrase. Implementation only for markdown files at this point.
+This project will enable the user to search a word or phrase and return the full path for any text file (.md, .txt, .html) that contains the search phrase. Implementation only for markdown files at this point. The point of the project is to consolidate notes in various files into a master file or folder by subject.
 
-The point of the project is to consolidate notes in various files, into a master file or folder. But you have to track down your notes by subject first. For example, I have multiple files and notes involving CSS resets. These notes and files are spread across many folders and I can't always remember where they are.
+<!-- But you have to track down your notes by subject first. For example, I have multiple files and notes involving CSS resets. These notes and files are spread across many folders and I can't always remember where they are. -->
 
 ## Table of Contents
 
@@ -27,6 +27,7 @@ The point of the project is to consolidate notes in various files, into a master
 
 - [.NET SDK](https://dotnet.microsoft.com/en-us/download) 10.0
 - [Visual Studio Code](https://code.visualstudio.com/) with [C# Dev Kit](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit)
+- [Node.js](https://nodejs.org/en)
 
 <span aria-hidden="true"><br></span>
 
@@ -51,13 +52,13 @@ The point of the project is to consolidate notes in various files, into a master
    dotnet run --project FileTextSearch.Console
    ```
 
-4. Run xUnit tests from project root:
+4. Run xUnit unit tests:
 
    ```sh
    dotnet test FileTextSearch.Tests
    ```
 
-5. View React front end UI (not added yet):
+5. View React front end UI:
 
    ```sh
    cd FileTextSearch.Web
@@ -74,25 +75,23 @@ The point of the project is to consolidate notes in various files, into a master
 ```bash
 # From project root:
 dotnet run --project FileTextSearch.Api
-# or replace --project with -p
-dotnet run -p FileTextSearch.Api
 ```
 
 Then go to `http://localhost:5042/scalar` to interact with the in-memory API. The API is at `http://localhost:5042/api/search`.
 
 ### Files
 
-- Controllers/SearchController.cs
-- Models/Searchresult.cs
-- Services/SearchService.cs
-- FileTextSearch.Api.http
-- Program.cs
+- [Controllers/SearchController.cs](./FileTextSearch.Api/Controllers/SearchController.cs)
+- [Models/Searchresult.cs](./FileTextSearch.Api/Models/SearchResult.cs)
+- [Services/SearchService.cs](./FileTextSearch.Api/Services/SearchService.cs)
+- [Program.cs](./FileTextSearch.Api/Program.cs)
+<!-- - FileTextSearch.Api.http -->
 
 <span aria-hidden="true"><br></span>
 
 ## Console Project
 
-Run the Console app
+### Run the Console app
 
 ```bash
 # From project root:
@@ -100,7 +99,7 @@ dotnet run --project FileTextSearch.Console # or:
 dotnet run -p FileTextSearch.Console
 ```
 
-### Console menu and output
+### Console menu
 
 ```
 1. Search Files
@@ -111,7 +110,7 @@ dotnet run -p FileTextSearch.Console
 6. Exit
 ```
 
-Once the React UI is handling the API, the Console project will write something similar to this:
+Once the React UI is handling the API, the Console project will change to something similar to this:
 
 ```
 ========== File Text Search ==========
@@ -135,14 +134,13 @@ Traversy/React       3
 Results successfully posted to the API.
 ```
 
-I still need to add error handling for edge cases and bad input.
+I still need to add error handling for edge cases and bad menu input.
 
 ### Files
 
 - Models/SearchResult.cs (same as Api Models file)
-- Services/FileSearchService.cs
-  - Should my method names be more descriptive?
-- Program.cs
+- [Services/FileSearchService.cs](./FileTextSearch.Console/Services/FileSearchService.cs)
+- [Program.cs](./FileTextSearch.Console/Program.cs)
 
 <span aria-hidden="true"><br></span>
 
@@ -150,10 +148,11 @@ I still need to add error handling for edge cases and bad input.
 
 ```bash
 # Run the tests from root
-dotnet test
+dotnet test # or
+dotnet test FileTextSearch.Tests
 ```
 
-I have 3 tests in `SearchServiceTests.cs`:
+I have 3 tests in [SearchServiceTests.cs](./FileTextSearch.Tests/SearchServiceTests.cs):
 
 1. POST: adding a search result
 2. GET: Get all results
@@ -163,26 +162,28 @@ I have 3 tests in `SearchServiceTests.cs`:
 
 ## React Project
 
-Run the React UI app (not added to project yet)
+### Run the React UI app
 
 ```bash
 cd FileTextSearch.Web
+# Install dependencies
 npm install
+# Start the development server
 npm run dev
 
 # Or run from the root:
 npm --prefix FileTextSearch.Web run dev
-
-# Then open http://localhost:5173/
 ```
 
-I intend to use a form in place of the Console menu and then display the search results in the UI. A temporary form is in place but it is not functional - I am unsure how to connect to the API from React. I am writing the search results to the UI but it needs CSS improvements.
+Then open `http://localhost:5173/`
+
+A form in the UI will replace the Console menu and then display the search results. A temporary form is in place but it is not functional - I am unsure how to connect to the API from React. I am writing the search results to the UI that are generated by the Console project.
 
 <span aria-hidden="true"><br></span>
 
 ## Project Structure
 
-Remember to add a `.github` folder with templates for issues and pull requests.
+<!-- Remember to add a `.github` folder with templates for issues and pull requests. -->
 
 ```python
 file-text-search/
@@ -260,6 +261,7 @@ Basic requirements:
    - I found C# difficult but understanding the importance of data types was important to learn. I hope to convert my JavaScript projectsto TypeScript in the near future.
 4. What would I have done differently for this project?
    - I wish that I couldh ave used a database and create aJSON file rather than use in memory for the data.
+5. ...
 
 <span aria-hidden="true"><br></span>
 
@@ -288,7 +290,6 @@ Basic requirements:
 3. Change user prompt and allow multiple search phrases separated by a comman, then `Split` on the comma and `Trim` whitespace
 4. Search other file types: _.json_ and _.csv_ will be easy, _.docx_ and _.xls_ will require a Nuget package
 5. I want to also be able to search for filename + extension like `reset.css`
-6. ...
 
 ```cs
 // I need to edit this code in Program.cs for the API project:
