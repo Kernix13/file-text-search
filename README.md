@@ -18,8 +18,8 @@ The point of the project is to consolidate notes in various files, into a master
 1. [AI Usage](#ai-usage)
 1. [Acknowledgments & Resources](#acknowledgments--resources)
 1. [Future Improvements](#future-improvements)
-1. [Contributing](#contributing)
-1. [License](#license)
+<!-- 1. [Contributing](#contributing)
+1. [License](#license) -->
 
 <span aria-hidden="true"><br></span>
 
@@ -276,6 +276,7 @@ Basic requirements:
 
 1. [Dependency injection for .NET APIs](https://youtu.be/LpBdpoHD50I): This was helpful for how to inject my services into Program.cs for use there.
 2. [Full API Pattern with .NET 9](https://youtu.be/W_1eW_hBlmw): Various API features including depending injection and using Scalar.
+3. [xUnit advanced Assert methods: Throws, IsType + more](https://youtu.be/Z7-3MV-7fGk): covers `Assert.Single` & `Assert.Empty` xUnit methods which I used in 2 of my test methods.
 
 <span aria-hidden="true"><br></span>
 
@@ -304,6 +305,7 @@ builder.Services.AddCors(options =>
 
 <span aria-hidden="true"><br></span>
 
+<!--
 ## Contributing
 
 Contributions are welcome! If you'd like to help improve this project, please read our _contribution guidelines_ on how to get started, our workflow, and code style expectations.
@@ -317,3 +319,5 @@ Contributions are welcome! If you'd like to help improve this project, please re
 This project is licensed under the MIT License.
 
 > Add a link for "MIT License" as soon as I add it.
+
+-->
