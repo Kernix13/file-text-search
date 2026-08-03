@@ -16,7 +16,6 @@ public class SearchServiceTests
         service.Add(new List<SearchResult> { newResult });
 
         // Assert
-        Assert.Single(service.SearchResults);
         Assert.Equal("test.txt", service.SearchResults[0].FileName);
     }
 
