@@ -256,7 +256,7 @@ Basic requirements:
 1. Why this project?
    - The search results in Windows File Explorer returns results that Ido not want, so I wanted to create a custom search to organize all my notes on web development.
 2. What did I learn from this project?
-   - I have a better understanding of Object OrientedProgramming and insight into how to build and implement an API.
+   - I have a better understanding of Object Oriented Programming and insight into how to build and implement an API.
 3. What did I learn from the Code:You C# Software Development pathway?
    - I found C# difficult but understanding the importance of data types was important to learn. I hope to convert my JavaScript projectsto TypeScript in the near future.
 4. What would I have done differently for this project?
@@ -268,7 +268,7 @@ Basic requirements:
 ## AI Usage
 
 1. I originally wanted to create a JSON file for my search results (POST) whichI did, but I was not able to to get GET working so I asked ChatGPT what the problem was. It showed me code to fix it, but since it was not what was covered in any of the lessons, I abandoned that approach and changed to "in memory" for the API.
-2. My tests were failing in random order so I asked GPT why after showing the errors. It was because of my `static` class and methods in `SearchService.cs`. I removed the `static` and made changes in SearchController.cs, Program.cs, and SearchServiceTests.cs
+2. My tests were failing in random order so I asked GPT why after showing the errors. It was because of my `static` class and methods in `SearchService.cs`. I removed the `static` and made changes in SearchController.cs, Program.cs, and SearchServiceTests.cs.
 3. I asked ChatGPT how to run the React project from the root and it told me about the `--prefix` option: `npm --prefix FileTextSearch.Web run dev`. That makes things a little easier.
 4. I used ChatGPT to explain the many errors I got in my console when trying to run my project. They were not also easy to interpret.
 

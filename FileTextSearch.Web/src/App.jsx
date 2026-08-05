@@ -46,7 +46,7 @@ const App = () => {
       <h1>System File Search</h1>
       {/* I need this to show the search phrase AFTER the form has been submitted */}
       <h2>Search results for: '{searchPhrase}'</h2>
-      <form onSubmit={handleSearch}>
+      <form className="search-form" onSubmit={handleSearch}>
 
         <div className="form-control">
           <label htmlFor="filesearch">Search your files:</label>
@@ -81,7 +81,7 @@ const App = () => {
           />
         </div>
 
-        <button type="submit">Search</button>
+        <button className="form-btn" type="submit">Search</button>
       </form>
 
       {/* { loading ? <p>Loading...</p> : null } */}
@@ -96,7 +96,7 @@ const App = () => {
             { searchResults.map(result => (
               <div key={result.id} className="result-card">
                 {/* just a list for now: */}
-                <button>Delete</button>
+                <button className="delete-btn">Delete</button>
                 <ul>
                   <li>{result.category}</li>
                   {/* <li>{result.fileName}</li> */}
@@ -106,8 +106,9 @@ const App = () => {
                     href={`file:///${result.fullPath.replace(/\\/g, "/")}`}
                   >{result.fileName}</a></li>
                   <li>File path: {`file:///${result.fullPath.replace(/\\/g, "/")}`}</li>
-                  <li>{result.priority}
-                    <button>Edit</button>
+                  <li><button className="copy-btn">Copy file path</button></li>
+                  <li>Priority: {result.priority}
+                    <button className="edit-btn">Edit</button>
                   </li>
                 </ul>
               </div>
