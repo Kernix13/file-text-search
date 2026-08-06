@@ -134,7 +134,17 @@ static async Task RunUpdateById(HttpClient client, FileSearchService searchServi
         return;
     }
 
-    await searchService.UpdateById(client, guid, priority ?? "Normal");
+    var response = await searchService.UpdateById(client, guid, priority ?? "Normal");
+    if (response.IsSuccessStatusCode)
+    {
+        Console.WriteLine("✅ Result updated successfully.");
+    }
+    else
+    {
+        Console.WriteLine($"🚫 Failed to update result with ID: {id}");
+    }
+
+    // await searchService.UpdateById(client, guid, priority ?? "Normal");
 }
 
 
