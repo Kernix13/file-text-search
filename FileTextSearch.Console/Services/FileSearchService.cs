@@ -75,9 +75,9 @@ public class FileSearchService
     }
 
     // PUT
-    public async Task UpdateById(HttpClient client, Guid id, string priority)
+    public async Task<HttpResponseMessage> UpdateById(HttpClient client, Guid id, string priority)
     {
-        await client.PutAsJsonAsync<SearchResult>($"/api/search/{id}", new SearchResult { Id = id, Priority = priority });
+        return await client.PutAsJsonAsync<SearchResult>($"/api/search/{id}", new SearchResult { Id = id, Priority = priority });
     }
 
     /* Helper method to search files based on the search phrase, and user provider file type and folder.
