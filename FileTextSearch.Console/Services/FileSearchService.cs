@@ -65,7 +65,14 @@ public class FileSearchService
     // GET
     public async Task<SearchResult?> GetById(HttpClient client, string id)
     {
-        return await client.GetFromJsonAsync<SearchResult>($"/api/search/{id}");
+        var response = await client.GetAsync($"/api/search/{id}");
+
+        if (response.IsSuccessStatusCode)
+        {
+            return await response.Content.ReadFromJsonAsync<SearchResult>();
+        }
+
+        return null;
     }
 
     // DELETE

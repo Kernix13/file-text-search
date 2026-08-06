@@ -102,12 +102,25 @@ static async Task RunGetById(HttpClient client, FileSearchService searchService)
 {
     Console.WriteLine("📌 Enter the Id of the result you want to view: ");
     string? id = Console.ReadLine();
-    var result = await searchService.GetById(client, id);
-
-    if (result != null)
+    if (string.IsNullOrWhiteSpace(id))
     {
-        Console.WriteLine(result.FileName);
-        Console.WriteLine(result.FullPath);
+        Console.WriteLine("🚫 Invalid Id.");
+        return;
+    }
+
+    if (!Guid.TryParse(id, out var guid))
+    {
+        Console.WriteLine("🚫 Invalid GUID format.");
+        return;
+    }
+
+    var response = await searchService.GetById(client, id);
+
+
+    if (response != null)
+    {
+        Console.WriteLine(response.FileName);
+        Console.WriteLine(response.FullPath);
     }
     else
     {
