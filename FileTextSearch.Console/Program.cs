@@ -85,7 +85,7 @@ static async Task RunGetAll(HttpClient client, FileSearchService searchService)
 {
     var results = await searchService.GetAll(client);
 
-    if (results is null)
+    if (results is null || !results.Any())
     {
         Console.WriteLine("🚫 No results returned from API.");
         return;
