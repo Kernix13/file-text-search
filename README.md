@@ -2,8 +2,6 @@
 
 This project will enable the user to search a word or phrase and return the full path for any text file (.md, .txt, .html) that contains the search phrase. Implementation only for markdown files at this point. The point of the project is to consolidate notes in various files into a master file or folder by subject.
 
-<!-- But you have to track down your notes by subject first. For example, I have multiple files and notes involving CSS resets. These notes and files are spread across many folders and I can't always remember where they are. -->
-
 ## Table of Contents
 
 1. [Prerequisites](#prerequisites)
@@ -28,6 +26,7 @@ This project will enable the user to search a word or phrase and return the full
 - [.NET SDK](https://dotnet.microsoft.com/en-us/download) 10.0
 - [Visual Studio Code](https://code.visualstudio.com/) with [C# Dev Kit](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit)
 - [Node.js](https://nodejs.org/en)
+- [React](https://react.dev/)
 
 <span aria-hidden="true"><br></span>
 
@@ -95,8 +94,7 @@ Then go to `http://localhost:5042/scalar` to interact with the in-memory API. Th
 
 ```bash
 # From project root:
-dotnet run --project FileTextSearch.Console # or:
-dotnet run -p FileTextSearch.Console
+dotnet run --project FileTextSearch.Console
 ```
 
 ### Console menu
@@ -110,6 +108,18 @@ dotnet run -p FileTextSearch.Console
 6. Exit
 ```
 
+### How to use
+
+1. Choose menu item 1 to "Search Files"
+2. Enter a search phrase that you know exists in a text file of some sort (md, txt, html, etc.)
+3. You can enter the specific text file extension or hit <kbd>ENTER</kbd> to accept default of `md` for markdown files.
+4. I would suggest accepting the default folder of `Documents` or whatever `Environment.SpecialFolder.MyDocuments` returns for your machine.
+
+You should then see output for the files found that have the search phrase in the file(s).
+
+The problem with entering a specific folder to search is because you need the entire filepath, e.g.: `C:\Users\pc\Documents\WebDev\CodeYou\`.
+
+<!--
 Once the React UI is handling the API, the Console project will change to something similar to this:
 
 ```
@@ -133,12 +143,11 @@ Traversy/React       3
 
 Results successfully posted to the API.
 ```
-
-I still need to add error handling for edge cases and bad menu input.
+-->
 
 ### Files
 
-- Models/SearchResult.cs (same as Api Models file)
+- [Models/SearchResult.cs](./FileTextSearch.Console/Models/SearchResult.cs) (same as Api Models file)
 - [Services/FileSearchService.cs](./FileTextSearch.Console/Services/FileSearchService.cs)
 - [Program.cs](./FileTextSearch.Console/Program.cs)
 
@@ -261,16 +270,23 @@ Basic requirements:
    - I found C# difficult but understanding the importance of data types was important to learn. I hope to convert my JavaScript projectsto TypeScript in the near future.
 4. What would I have done differently for this project?
    - I wish that I couldh ave used a database and create aJSON file rather than use in memory for the data.
-5. ...
 
 <span aria-hidden="true"><br></span>
 
 ## AI Usage
 
 1. I originally wanted to create a JSON file for my search results (POST) whichI did, but I was not able to to get GET working so I asked ChatGPT what the problem was. It showed me code to fix it, but since it was not what was covered in any of the lessons, I abandoned that approach and changed to "in memory" for the API.
-2. My tests were failing in random order so I asked GPT why after showing the errors. It was because of my `static` class and methods in `SearchService.cs`. I removed the `static` and made changes in SearchController.cs, Program.cs, and SearchServiceTests.cs.
+2. My tests were failing in random order so I asked GPT why after showing the errors. It was because of my `static` class and methods in `SearchService.cs`. I removed the `static` keyword and made changes in `SearchController.cs`, `Program.cs`, and `SearchServiceTests.cs`.
 3. I asked ChatGPT how to run the React project from the root and it told me about the `--prefix` option: `npm --prefix FileTextSearch.Web run dev`. That makes things a little easier.
-4. I used ChatGPT to explain the many errors I got in my console when trying to run my project. They were not also easy to interpret.
+4. I used ChatGPT to explain the many errors I got in my console when trying to run my project. They were not always easy to interpret.
+5. ChatGPT helped me with the process of searching folders with the code on ~ line #'s 137-138 in `Console/FileSearchService.cs`
+   - I was having difficulty with searching folders and files during the early stages of the project (see code block below):
+
+```cs
+// Get the current folder to search and remove it from the list of folders to search - AI Usage #5
+var currentFolder = foldersToSearch[0];
+foldersToSearch.RemoveAt(0);
+```
 
 <span aria-hidden="true"><br></span>
 
@@ -286,8 +302,9 @@ Basic requirements:
 
 1. Fix the code that uses `AllowAny...` in the API project involving CORS (see codeblock below)
 2. I already allow the user to select a specific folder to search, but you have to type out the full folder path. It would be better to somehow allow the user to "browse" their system folders.
-   - ✅ I have added this but you need the full path like `C:/Users/pc/Documents/WebDev/CodeYou`. That is cumbersome
-3. Change user prompt and allow multiple search phrases separated by a comman, then `Split` on the comma and `Trim` whitespace
+   - ✅ I have added this but you need the full path like `C:/Users/pc/Documents/WebDev/CodeYou/`. That is cumbersome
+   - Another option is to allow the user to just add the path _AFTER_ `Documents/`, such as `WebDev/CodeYou/`
+3. Change user prompt and allow multiple search phrases separated by a comma, then `Split` on the comma and `Trim` whitespace
 4. Search other file types: _.json_ and _.csv_ will be easy, _.docx_ and _.xls_ will require a Nuget package
 5. I want to also be able to search for filename + extension like `reset.css`
 
@@ -305,20 +322,3 @@ builder.Services.AddCors(options =>
 ```
 
 <span aria-hidden="true"><br></span>
-
-<!--
-## Contributing
-
-Contributions are welcome! If you'd like to help improve this project, please read our _contribution guidelines_ on how to get started, our workflow, and code style expectations.
-
-> Add a link for "contribution guidelines" as soon as I add that file. Also add a code of conduct file.
-
-<span aria-hidden="true"><br></span>
-
-## License
-
-This project is licensed under the MIT License.
-
-> Add a link for "MIT License" as soon as I add it.
-
--->

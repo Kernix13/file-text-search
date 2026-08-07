@@ -6,7 +6,7 @@ namespace FileTextSearch.Console.Services;
 public class FileSearchService
 {
     // Add or remove your preferred plain-text file type extensions here:
-    // Currently not implemented
+    // Currently not being implemented
     private readonly string[] _allowedExtensions = new[] {
         "md", "mdx",
         "txt", "csv",
@@ -87,8 +87,7 @@ public class FileSearchService
         return await client.PutAsJsonAsync<SearchResult>($"/api/search/{id}", new SearchResult { Id = id, Priority = priority });
     }
 
-    /* Helper method to search files based on the search phrase, and user provider file type and folder.
-    How do I remove the WriteLine statements? */
+    /* Helper method to search files based on the search phrase, and user provider file type and folder. */
     public async Task<List<SearchResult>> SearchFiles(string searchPhrase, string userFolder, string fileType)
     {
 
@@ -134,7 +133,7 @@ public class FileSearchService
         // Start the search loop, which continues until there are no more folders to search
         while (foldersToSearch.Count > 0)
         {
-            // Get the current folder to search and remove it from the list of folders to search 
+            // Get the current folder to search and remove it from the list of folders to search - AI Usage #5
             var currentFolder = foldersToSearch[0];
             foldersToSearch.RemoveAt(0);
 
@@ -151,6 +150,7 @@ public class FileSearchService
                         {
                             var info = new FileInfo(file);
                             var result = new SearchResult();
+                            // Folder path after 'Documents' or user folder
                             var relativePath = file
                                 .Replace(rootFolder, "")
                                 .Trim('\\');
@@ -173,7 +173,7 @@ public class FileSearchService
             }
             catch (UnauthorizedAccessException)
             {
-                // Skip the folder
+                // Skip the folder if access is denied and continue the search
             }
 
             try
@@ -188,14 +188,14 @@ public class FileSearchService
                         skippedFoldersCount++;
                         continue;
                     }
-                    // Add the subdirectory to the list of folders to search
+                    // Add each subdirectory to the list of folders to search
                     foldersToSearch.Add(directory);
                 }
 
             }
             catch (UnauthorizedAccessException)
             {
-                // Skip the folder
+                // Skip the folder if access is denied and continue the search
             }
         }
 

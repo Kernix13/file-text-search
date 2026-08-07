@@ -7,8 +7,6 @@ public class SearchService
 
     public List<SearchResult> SearchResults { get; } = new List<SearchResult>();
 
-    // Do I need a constructor here?
-
     // GET: api/search
     public List<SearchResult> GetAll() => SearchResults;
 

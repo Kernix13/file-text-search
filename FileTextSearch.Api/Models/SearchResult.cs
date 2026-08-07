@@ -7,5 +7,5 @@ public class SearchResult
     public string FullPath { get; set; } = string.Empty;
     public string Category { get; set; } = "General"; // Maps to the subfolder path
     public long FileSize { get; set; }
-    public string Priority { get; set; } = "Normal"; // Change priority in the UI to "High" or "Low" as needed
+    public string Priority { get; set; } = "Normal"; // Change priority to "High" or "Low" for the Update method
 }

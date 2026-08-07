@@ -47,7 +47,7 @@ while (true)
     }
 }
 
-// 1. Helper method for running the search with user input
+// 1. Method for running the search with user input
 static async Task RunSearch(HttpClient client, FileSearchService searchService)
 {
     Console.Write("📌 Enter search phrase: ");
@@ -64,8 +64,10 @@ static async Task RunSearch(HttpClient client, FileSearchService searchService)
         (Press Enter to use your Documents folder): ");
     string userFolder = Console.ReadLine() ?? "";
 
+    // Main search logic in FileSearchService.cs
     var results = await searchService.SearchFiles(searchPhrase, userFolder, fileType);
     
+    // Then post the results found
     await searchService.Create(client, results);
 
     foreach (var result in results)
@@ -115,8 +117,6 @@ static async Task RunGetById(HttpClient client, FileSearchService searchService)
     }
 
     var response = await searchService.GetById(client, id);
-
-
     if (response != null)
     {
         Console.WriteLine(response.FileName);
@@ -133,8 +133,10 @@ static async Task RunUpdateById(HttpClient client, FileSearchService searchServi
 {
     Console.WriteLine("📌 Enter the Id of the result you want to edit: ");
     string? id = Console.ReadLine();
+
     Console.WriteLine("📌 Enter the new priority value (High/Low): ");
     string? priority = Console.ReadLine();
+
     if (string.IsNullOrWhiteSpace(id))
     {
         Console.WriteLine("🚫 Invalid Id.");
@@ -164,11 +166,13 @@ static async Task RunDeleteById(HttpClient client, FileSearchService searchServi
 {
     Console.WriteLine("📌 Enter the Id of the result you want to delete: ");
     string? id = Console.ReadLine();
+
     if (string.IsNullOrWhiteSpace(id))
     {
         Console.WriteLine("🚫 Invalid Id.");
         return;
     }
+    
     var response = await searchService.DeleteById(client, id);
     if (response.IsSuccessStatusCode)
     {

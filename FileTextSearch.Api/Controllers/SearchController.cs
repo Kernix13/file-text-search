@@ -30,17 +30,15 @@ public class SearchController : ControllerBase
         }
 
         return Ok(result);
-        // return result;
     }
 
     // POST: api/search
     [HttpPost]
     public ActionResult Create(List<SearchResult> newResults)
     {
-        // Pass the list to your service
+        // Pass the list to the service
         _searchService.Add(newResults);
 
-        // Return a status 200 OK along with the data
         return Ok(newResults);
     }
 
@@ -60,7 +58,7 @@ public class SearchController : ControllerBase
         }
 
         _searchService.Update(updatedResult);
-        return NoContent(); // Returns a 204 No Content 
+        return NoContent();
     }
 
     // DELETE: api/search/a1b2c3d4...
@@ -74,6 +72,6 @@ public class SearchController : ControllerBase
         }
 
         _searchService.Delete(id);
-        return NoContent(); // Returns a 204 No Content 
+        return NoContent();
     }
 }
