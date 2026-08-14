@@ -7,22 +7,18 @@ const App = () => {
   const [searchPhrase, setSearchPhrase] = useState("");
   const [fileType, setFileType] = useState("");
   const [folder, setFolder] = useState("");
-  
   const [searchResults, setSearchResults] = useState([]);
+  
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const handleSearch = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     console.log(searchPhrase, fileType, folder);
     // call the API here
 
     // I need to clear the search form when done
   }
-
-  // This seems wrong!!!
-  const onTypeChange = (value) => setFileType(value);
-  // console.log(fileType);
 
   useEffect(() => {
     const fetchResults = async () => {
@@ -46,7 +42,7 @@ const App = () => {
       <h1>System File Search</h1>
       {/* I need this to show the search phrase AFTER the form has been submitted */}
       <h2>Search results for: '{searchPhrase}'</h2>
-      <form className="search-form" onSubmit={handleSearch}>
+      <form className="search-form" onSubmit={handleSubmit}>
 
         <div className="form-control">
           <label htmlFor="filesearch">Search your files:</label>
@@ -61,7 +57,7 @@ const App = () => {
 
         <div className="form-control">
           <label htmlFor="type">Show: </label>
-          <select value={fileType} id="type" onChange={(e) => onTypeChange(e.target.value)}>
+          <select value={fileType} id="type" onChange={(e) => setFileType(e.target.value)}>
             <option value="md">md</option>
             <option value="txt">txt</option>
             <option value="css">css</option>
@@ -77,7 +73,7 @@ const App = () => {
             id="folder"
             value={folder}
             onChange={e => setFolder(e.target.value)}
-            placeholder="Leave blank to search Documents"
+            placeholder="Folder path (optional)"
           />
         </div>
 
