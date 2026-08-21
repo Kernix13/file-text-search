@@ -11,11 +11,11 @@ This project will enable the user to search a word or phrase and return the full
 1. [React Project](#react-project)
 1. [Project Structure](#project-structure)
 1. [Tech Stack](#tech-stack)
-1. [Capstone Requirements](#capstone-requirements)
-1. [Capstone Questions](#capstone-questions)
-1. [AI Usage](#ai-usage)
 1. [Acknowledgments & Resources](#acknowledgments--resources)
 1. [Future Improvements](#future-improvements)
+<!-- 1. [Capstone Requirements](#capstone-requirements)
+1. [Capstone Questions](#capstone-questions)
+1. [AI Usage](#ai-usage) -->
 <!-- 1. [Contributing](#contributing)
 1. [License](#license) -->
 
@@ -234,6 +234,40 @@ file-text-search/
 
 <span aria-hidden="true"><br></span>
 
+<span aria-hidden="true"><br></span>
+
+## Acknowledgments & Resources
+
+1. [Dependency injection for .NET APIs](https://youtu.be/LpBdpoHD50I): This was helpful for how to inject my services into Program.cs for use there.
+2. [Full API Pattern with .NET 9](https://youtu.be/W_1eW_hBlmw): Various API features including depending injection and using Scalar.
+3. [xUnit advanced Assert methods: Throws, IsType + more](https://youtu.be/Z7-3MV-7fGk): covers `Assert.Single` & `Assert.Empty` xUnit methods which I used in 2 of my test methods.
+
+<span aria-hidden="true"><br></span>
+
+## Future Improvements
+
+1. Fix the code that uses `AllowAny...` in the API project involving CORS (see codeblock below)
+2. I already allow the user to select a specific folder to search, but you have to type out the full folder path. It would be better to somehow allow the user to "browse" their system folders.
+   - ✅ I have added this but you need the full path like `C:/Users/pc/Documents/WebDev/CodeYou/`. That is cumbersome
+   - Another option is to allow the user to just add the path _AFTER_ `Documents/`, such as `WebDev/CodeYou/`
+3. Change user prompt and allow multiple search phrases separated by a comma, then `Split` on the comma and `Trim` whitespace
+4. Search other file types: _.json_ and _.csv_ will be easy, _.docx_ and _.xls_ will require a Nuget package
+5. I want to also be able to search for filename + extension like `reset.css`
+
+```cs
+// I need to edit this code in Program.cs for the API project:
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+```
+
+<!--
 ## Capstone Requirements
 
 > Due by Noon on August 14th, 2026
@@ -271,8 +305,6 @@ Basic requirements:
 4. What would I have done differently for this project?
    - I wish that I couldh ave used a database and create aJSON file rather than use in memory for the data.
 
-<span aria-hidden="true"><br></span>
-
 ## AI Usage
 
 1. I originally wanted to create a JSON file for my search results (POST) whichI did, but I was not able to to get GET working so I asked ChatGPT what the problem was. It showed me code to fix it, but since it was not what was covered in any of the lessons, I abandoned that approach and changed to "in memory" for the API.
@@ -287,38 +319,4 @@ Basic requirements:
 var currentFolder = foldersToSearch[0];
 foldersToSearch.RemoveAt(0);
 ```
-
-<span aria-hidden="true"><br></span>
-
-## Acknowledgments & Resources
-
-1. [Dependency injection for .NET APIs](https://youtu.be/LpBdpoHD50I): This was helpful for how to inject my services into Program.cs for use there.
-2. [Full API Pattern with .NET 9](https://youtu.be/W_1eW_hBlmw): Various API features including depending injection and using Scalar.
-3. [xUnit advanced Assert methods: Throws, IsType + more](https://youtu.be/Z7-3MV-7fGk): covers `Assert.Single` & `Assert.Empty` xUnit methods which I used in 2 of my test methods.
-
-<span aria-hidden="true"><br></span>
-
-## Future Improvements
-
-1. Fix the code that uses `AllowAny...` in the API project involving CORS (see codeblock below)
-2. I already allow the user to select a specific folder to search, but you have to type out the full folder path. It would be better to somehow allow the user to "browse" their system folders.
-   - ✅ I have added this but you need the full path like `C:/Users/pc/Documents/WebDev/CodeYou/`. That is cumbersome
-   - Another option is to allow the user to just add the path _AFTER_ `Documents/`, such as `WebDev/CodeYou/`
-3. Change user prompt and allow multiple search phrases separated by a comma, then `Split` on the comma and `Trim` whitespace
-4. Search other file types: _.json_ and _.csv_ will be easy, _.docx_ and _.xls_ will require a Nuget package
-5. I want to also be able to search for filename + extension like `reset.css`
-
-```cs
-// I need to edit this code in Program.cs for the API project:
-builder.Services.AddCors(options =>
-{
-    options.AddDefaultPolicy(policy =>
-    {
-        policy.AllowAnyOrigin()
-            .AllowAnyHeader()
-            .AllowAnyMethod();
-    });
-});
-```
-
-<span aria-hidden="true"><br></span>
+-->
